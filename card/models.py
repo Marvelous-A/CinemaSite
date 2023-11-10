@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Film(models.Model):
     title = models.CharField(max_length=50)
@@ -14,3 +15,6 @@ class Film(models.Model):
 
     def __str__(self):
         return f'Tel: {self.title}'
+    
+class MyUser(AbstractUser):
+    age = models.PositiveIntegerField(blank = True)

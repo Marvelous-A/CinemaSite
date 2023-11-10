@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film
-from .forms import FilmForm
+from .forms import FilmForm, RegisterForm
+from django.contrib.auth import login, authenticate
 
 
 # def base(request):
@@ -30,3 +31,16 @@ def add_move(request):
         Film.objects.all()
         form = FilmForm()
     return render(request, 'card/add_move.html', {})
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.Post)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('main_list')
+        else:
+            form = RegisterForm()
+    return render(request,'card/register.html', {"form": form})
+
+# TODO: Дописать отображение для логина
