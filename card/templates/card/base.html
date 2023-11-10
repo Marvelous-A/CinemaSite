@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href={% static "css/base.css" %}>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');</style>
+
+    <title>Cinema</title>
+</head>
+<body>
+    <header id='header'>
+        <h3>CINEMA</h3>
+        <div><a id='admin' href="/admin">Admin</a></div>
+        <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
+        <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
+        <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
+    </header>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

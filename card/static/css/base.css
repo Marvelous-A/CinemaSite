@@ -1,0 +1,114 @@
+body {
+    min-height: 100vh;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #383838;
+    font-family: 'Jost', sans-serif;
+}
+#header {
+    height: 20%;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0;
+    border-bottom: solid 2px #ff0000;
+    color: #ff0000;
+    font-size: 30px;
+}
+#header h3 { /*лого*/
+    margin-left: 3%;
+}
+#header a { /*Стиль кнопок в header*/
+    padding-left: 1%;
+    padding-right: 1%;
+    padding-top: 0.3%;
+    padding-bottom: 0.3%;
+    color: #fff;
+    background-color: #ff0000;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+#tickets { /*Кнопка билеты*/
+    position: absolute;
+    left: 93%;
+    bottom: 88%;
+}
+#add_move { /*Кнопка добавить фильм*/
+    width: 10%;
+    position: absolute;
+    left: 87.5%;
+    bottom: 82%;
+}
+#main_list { /*Кнопка главная*/
+    position: absolute;
+    left: 93%;
+    bottom: 94%;
+}
+#admin {
+    position: absolute;
+    left: 86%;
+    bottom: 94%;
+}
+
+#inputs_parameters_move { /*Поля для ввода*/
+    margin-left: 2%;
+    margin-bottom: 8%;
+}
+.input { /*Поле для ввода*/
+    height: 5%;
+    width: 25%;
+    background-color: #383838;
+    border: solid 2px #ff0000;
+    border-radius: 8px;
+    margin-left: 1%;
+}
+#button_done {
+    width: 10%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    color: #fff;
+    background-color: #ff0000;
+    border: solid 2px #fff;
+    border-radius: 16px;
+    font-size: 20px;
+    margin-left: 2%;
+    margin-bottom: 10%;
+}
+
+.film_poster {
+    width: 23%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    margin-top: 1%;
+    margin-left: 1%;
+    display: inline-block;
+}
+#url_film_title {
+    margin: 5%;
+    text-decoration: none;
+    color: #000;
+    font-size: 20px;
+}
+.foto {
+    height: 429.5px;/*859*/
+    width: 290px;/*580*/
+    border-radius: 16px;
+}
+
+#poster_detal {
+    margin-top: 1%;
+    margin-left: 1%;
+}
+#poster_detal img {
+    float: left;
+}
+#poster_detal h3 {
+    width: 80%;
+    margin-left: 3%;
+    position: relative;
+    left: 2%;
+}

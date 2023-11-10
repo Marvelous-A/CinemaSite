@@ -1,0 +1,13 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+<div id='poster_detal'>
+        <img class='foto' src={{films.img_url}} alt='фото'\>
+        <h3>{{films.title}}</h3>
+        <h3>Год: {{films.year}}г.</h3>
+        <h3>Страна: {{films.country}}</h3>
+        <h3>Режиссёр: {{films.director}}</h3>
+        <h3>Длительность: {{films.duration}}</h3>
+        <h3>Описание:<br>{{films.discription}}</h3>
+    <div>
+{% endblock %}

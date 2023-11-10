@@ -1,0 +1,39 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <div><p>Добавить фильм</p></div>
+    <div id='inputs_parameters_move'>
+        <form method="post">
+            {% csrf_token %}
+            <div class='parameters_move'>
+                <h4>Название</h4>
+                <input class='input' value="{{ form.title.value }}" type="text" name="{{ form.title.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Фото(URL)</h4>
+                <input class='input' value="{{ form.img_url.value }}" type="text" name="{{ form.img_url.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Описание</h4>
+                <input class='input' value="{{ form.discription.value }}" type="text" name="{{ form.discription.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Год выпуска</h4>
+                <input class='input' value="{{ form.year.value }}" type="text" name="{{ form.year.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Страна</h4>
+                <input class='input' value="{{ form.country.value }}" type="text" name="{{ form.country.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Режиссёр</h4>
+                <input class='input' value="{{ form.director.value }}" type="text" name="{{ form.director.value }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Продолжительнсть</h4>
+                <input class='input' value="{{ form.duration.value }}" type="text" name="{{ form.duration.value }}">
+            </div>
+        </from>
+    </div>
+    <button id='button_done' type='submit'>Готово</button>
+{% endblock %}  
