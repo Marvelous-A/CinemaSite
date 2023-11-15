@@ -1,10 +1,10 @@
-{% extends "card/base.html" %}
+    {% extends "card/base.html" %}
 
 {% block content %}
     {% for film in films %}
         <div class='film_poster'>
             <img class='foto' src={{film.img_url}} alt='фото'\>
-            <a id='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{film.title}}</a>
+            <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{film.title}}</a>
         </div>
     {% endfor %}
 {% endblock %}

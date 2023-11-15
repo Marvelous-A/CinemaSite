@@ -1,7 +1,7 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-<div id='poster_detal'>
+    <div id='poster_detal'>
         <img class='foto' src={{films.img_url}} alt='фото'\>
         <h3>{{films.title}}</h3>
         <h3>Год: {{films.year}}г.</h3>
@@ -9,5 +9,33 @@
         <h3>Режиссёр: {{films.director}}</h3>
         <h3>Длительность: {{films.duration}}</h3>
         <h3>Описание:<br>{{films.discription}}</h3>
-    <div>
+        <br>
+        {% for cinema_True in cinemas_True %}
+            {% for cinema in cinemas %}
+                {% if cinema_True == cinema.name %}
+                    <div class='cinemas'>
+                        <h2>{{cinema.name}}</h2>
+                        <p>Адрес: {{cinema.address}}</p>
+                        <p>Номер телефона: {{cinema.phone}}</p>
+                    </div>
+                    {% for hall in halls %}
+                        <div id='hall'>
+                            <h2>{{hall.format}}</h2>
+                            <div id='hall_time'>
+                                <h3>{{hall.time}}</h3>
+                                <p>от {{hall.price}}р</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+    {% comment %} {% for cinema in cinemas %}
+        <div class='cinemas'>
+            <a class='url_film_title' href="{% url 'login' %}" ><h2>{{cinema.name}}</h2></a>
+            <p>Адрес: {{cinema.address}}</p>
+            <p>Номер телефона: {{cinema.phone}}</p>
+        </div>
+    {% endfor %} {% endcomment %}
 {% endblock %}

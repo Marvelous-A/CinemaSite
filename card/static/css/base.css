@@ -19,8 +19,8 @@ body {
     margin-left: 3%;
 }
 #header a { /*Стиль кнопок в header*/
-    padding-left: 1%;
-    padding-right: 1%;
+    padding-left: 2%;
+    padding-right: 2%;
     padding-top: 0.3%;
     padding-bottom: 0.3%;
     color: #fff;
@@ -29,26 +29,12 @@ body {
     text-decoration: none;
     font-size: 20px;
 }
-#tickets { /*Кнопка билеты*/
-    position: absolute;
-    left: 93%;
-    bottom: 88%;
-}
-#add_move { /*Кнопка добавить фильм*/
-    width: 10%;
-    position: absolute;
-    left: 87.5%;
-    bottom: 82%;
-}
-#main_list { /*Кнопка главная*/
-    position: absolute;
-    left: 93%;
-    bottom: 94%;
-}
-#admin {
-    position: absolute;
-    left: 86%;
-    bottom: 94%;
+
+#button_base {
+    height: 30%;
+    width: 42%;
+    text-align: center;
+    margin-left: 58%;
 }
 
 #inputs_parameters_move { /*Поля для ввода*/
@@ -87,7 +73,7 @@ body {
     margin-left: 1%;
     display: inline-block;
 }
-#url_film_title {
+.url_film_title {
     margin: 5%;
     text-decoration: none;
     color: #000;
@@ -111,4 +97,33 @@ body {
     margin-left: 3%;
     position: relative;
     left: 2%;
+}
+.cinemas {
+    margin-left: 3%;
+}
+#hall {
+    width: 60%;
+    position: relative;
+    left: 40%;
+    bottom: 13%;
+}
+#hall h2 {
+    margin: 0;
+}
+#hall_time {
+    height: 6%;
+    width: 6%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    text-align: center;
+    padding-bottom: 0.1%;
+    padding-top: 0.3%;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+#hall_time p {
+    margin: 0;
+}
+#hall_time h3 {
+    margin: 0;
 }

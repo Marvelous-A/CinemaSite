@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film
-from .forms import FilmForm, RegisterForm
+from .models import Film, Cinema, Hall
+from .forms import FilmForm#, RegisterForm
 from django.contrib.auth import login, authenticate
 
 
@@ -16,7 +16,10 @@ def tickets_films(request):
 
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
-    return render(request, 'card/film_detal.html', {'films': films})
+    cinemas_True = films.cinemas_detals.split(';')
+    cinemas = Cinema.objects.all()
+    halls = Hall.objects.all()
+    return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'cinemas_True': cinemas_True, 'halls': halls})
 
 def add_move(request):
     if request.method == 'POST':
@@ -32,15 +35,18 @@ def add_move(request):
         form = FilmForm()
     return render(request, 'card/add_move.html', {})
 
-def register(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.Post)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('main_list')
-        else:
-            form = RegisterForm()
-    return render(request,'card/register.html', {"form": form})
+def logout(request):
+    return render(request, 'card/main_list.html', {})
+
+# def register(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.Post)
+#         if form.is_valid():
+#             user = form.save()
+#             login(request, user)
+#             return redirect('main_list')
+#         else:
+#             form = RegisterForm()
+#     return render(request,'card/register.html', {"form": form})
 
 # TODO: Дописать отображение для логина

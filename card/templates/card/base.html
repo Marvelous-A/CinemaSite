@@ -11,10 +11,23 @@
 <body>
     <header id='header'>
         <h3>CINEMA</h3>
-        <div><a id='admin' href="/admin">Admin</a></div>
-        <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
-        <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
-        <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
+        {% if user.is_authenticated %}
+            <div id='button_base'>
+                <a id='admin' href="/admin">Admin</a>
+                <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
+                <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
+                <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
+                <a id='logout' href="{% url 'logout' %}">Log out</a>
+            </div>
+        {% else %}
+            <div id="button_base">
+                <a id='admin' href="/admin">Admin</a>
+                <a id='tickets' href="{% url 'login' %}" >Билеты</a>
+                <a id='add_move' href="{% url 'login' %}" >Добавить фильм</a>
+                <a id='main_list' href="{% url 'login' %}" >Главная</a>
+                <a id='login' href="{% url 'login' %}">Login</a>
+            </div>
+        {% endif %}
     </header>
     {% block content %}
     {% endblock %}
