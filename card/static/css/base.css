@@ -62,16 +62,24 @@ body {
     margin-bottom: 10%;
 }
 
+.conteiner {
+    display: flex;
+    flex-wrap: wrap; /*чтобы переносить элементы на другую строчку*/
+    align-items: center;
+    justify-content: flex-start; /*Начало строки*/
+}
 .film_poster {
     width: 23%;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     text-align: center;
+    display: inline-block;
+}
+.conteiner .film_poster {
     padding-top: 0.5%;
     padding-bottom: 0.5%;
     margin-top: 1%;
     margin-left: 1%;
-    display: inline-block;
 }
 .url_film_title {
     margin: 5%;
