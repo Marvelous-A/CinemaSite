@@ -5,6 +5,7 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #383838;
+    color: #fff;
     font-family: 'Jost', sans-serif;
 }
 #header {
@@ -110,17 +111,18 @@ body {
     margin-left: 3%;
 }
 #hall {
-    width: 60%;
+    width: 20%;
     position: relative;
     left: 40%;
     bottom: 13%;
+    margin: 0;
 }
 #hall h2 {
     margin: 0;
 }
-#hall_time {
+#hall_time_price {
     height: 6%;
-    width: 6%;
+    width: 30%;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
     text-align: center;
@@ -128,10 +130,23 @@ body {
     padding-top: 0.3%;
     padding-left: 1%;
     padding-right: 1%;
-}
-#hall_time p {
     margin: 0;
 }
-#hall_time h3 {
+#hall_time_price a {
+    text-decoration: none;
+    color: #fff;
+}
+#hall_time_price h3 {
     margin: 0;
+}
+
+#place {
+    margin-left: 10px;
+}
+#hall_places {
+    width: 60%;
+    text-align: center;
+}
+#check_place {
+    color:#ff0000;
 }

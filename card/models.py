@@ -42,7 +42,7 @@ class Hall(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Tel: {self.time} {self.price}р {self.format}'
+        return f'Tel: {self.cinema_name} {self.time} {self.price}р {self.format}'
 
 # class MyUser(AbstractUser):
 #     age = models.PositiveIntegerField(blank = True)

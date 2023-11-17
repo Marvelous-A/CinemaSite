@@ -18,15 +18,16 @@
                         <p>Адрес: {{cinema.address}}</p>
                         <p>Номер телефона: {{cinema.phone}}</p>
                     </div>
-                    {% for hall in halls %}
-                        <div id='hall'>
-                            <h2>{{hall.format}}</h2>
-                            <div id='hall_time'>
-                                <h3>{{hall.time}}</h3>
-                                <p>от {{hall.price}}р</p>
+                    <div class='conteiner'>
+                        {% for hall in halls %}
+                            <div id='hall'>
+                                <h2>{{hall.format}}</h2>
+                                <div id='hall_time_price'>
+                                    <a href="{% url 'hall_detal' pk=hall.pk %}" ><h3>{{hall.time}}</h3> {{hall.price}}р</a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    </div>
                 {% endif %}
             {% endfor %}
         {% endfor %}

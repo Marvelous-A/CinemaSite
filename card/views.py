@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall
-from .forms import FilmForm, RegisterForm
+from .forms import FilmForm#, RegisterForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 
@@ -45,6 +45,22 @@ def add_move(request):
 @login_required(login_url='login')
 def logout(request):
     return render(request, 'card/main_list.html', {})
+
+@login_required(login_url='login')
+def hall_detal(request, pk):
+    halls = get_object_or_404(Hall, pk=pk)
+    places_f = ''
+    for i in range(halls.places):
+        places_f+='qwe'
+        print(places_f)
+    places = places_f.split('e')
+
+    rows_f = ''
+    for j in range(halls.rows):
+        rows_f+='asd'
+        print(rows_f)
+    rows = rows_f.split('d')
+    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places, 'rows': rows})
 
 # def register(request):
 #     if request.method == 'POST':

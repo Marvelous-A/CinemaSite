@@ -1,0 +1,15 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <p id='qwe'>{{halls.rows}}</p>
+    <p>{{halls.places}}</p>
+    <div id='hall_places'>
+        {% for j in rows %}
+            <div class='conteiner'>
+                {% for i in places %}
+                    <p id='place'>{{i}}</p>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
