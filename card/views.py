@@ -1,18 +1,27 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall
 from .forms import FilmForm#, RegisterForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('main_list')  # Перенаправление на главную страницу
+        else:
+            # Возвращение сообщения об ошибке
+            return render(request, 'auth/login.html', {'error': 'Неверное имя пользователя или пароль'})
+    else:
+        return render(request, 'auth/login.html')
 
-# def base(request):
-#     return render(request, 'card/main_list.html', {})
 @login_required(login_url='login')
 def main_list(request):
-    if request.user.is_authenticated:
-        return render(request, 'card/main_list.html', {})
-    else:
-        return render(request, 'card/login.html', {})
+    return render(request, 'card/main_list.html', {})
+  
 
 @login_required(login_url='login')
 def tickets_films(request):
@@ -43,7 +52,8 @@ def add_move(request):
     return render(request, 'card/add_move.html', {})
 
 @login_required(login_url='login')
-def logout(request):
+def logout_view(request):
+    logout(request)
     return render(request, 'card/main_list.html', {})
 
 @login_required(login_url='login')

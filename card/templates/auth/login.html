@@ -6,8 +6,11 @@
     <h2>Login</h2>
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Login</button>
+    <label for="username">Имя пользователя:</label>
+    <input type="text" name="username" id="username">
+    <label for="password">Пароль:</label>
+    <input type="password" name="password" id="password">
+    <button type="submit">Войти</button>
     </form>
     <!-- Дополнительные ссылки -->
     {% comment %} <p><a href="{% url 'password_reset' %}">Forgot password?</a></p> {% endcomment %}
