@@ -112,7 +112,8 @@ body {
 }
 #hall {
     width: 20%;
-    position: relative;
+    display: flex;
+    display: inline-block;
     left: 40%;
     bottom: 13%;
     margin: 0;
@@ -132,6 +133,18 @@ body {
     padding-right: 1%;
     margin: 0;
 }
+
+#hall_rows{
+    display: inline-block;
+    width: 100%
+    justify-content: center;
+}
+
+#hall_rows a{
+    margin-left: 20px;
+}
+
+
 #hall_time_price a {
     text-decoration: none;
     color: #fff;

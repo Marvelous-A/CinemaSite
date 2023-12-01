@@ -67,7 +67,7 @@ def hall_detal(request, pk):
         places.append(row)
     print(places)
 
-    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places, 'rows': row})
+    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places})
 
 # def register(request):
 #     if request.method == 'POST':
