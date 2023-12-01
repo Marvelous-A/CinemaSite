@@ -49,18 +49,15 @@ def logout(request):
 @login_required(login_url='login')
 def hall_detal(request, pk):
     halls = get_object_or_404(Hall, pk=pk)
-    places_f = ''
-    for i in range(halls.places):
-        places_f+='qwe'
-        print(places_f)
-    places = places_f.split('e')
+    places = []
+    for i in range(halls.rows):
+        row = []
+        for j in range(halls.places):
+            row.append(f'{i}, {j}')
+        places.append(row)
+    print(places)
 
-    rows_f = ''
-    for j in range(halls.rows):
-        rows_f+='asd'
-        print(rows_f)
-    rows = rows_f.split('d')
-    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places, 'rows': rows})
+    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places, 'rows': row})
 
 # def register(request):
 #     if request.method == 'POST':
