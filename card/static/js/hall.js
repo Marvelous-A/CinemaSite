@@ -1,6 +1,32 @@
-var typePlace = document.getElementById('place')
+let truePlaces = []
+let foundValue = -1
+let typePlace = document.querySelectorAll('.place')
+let bronePlaces = document.getElementById('brone_places')
+let priceBilets = document.getElementById('price_tickets')
+let pricePerTicket = document.getElementById('price_per_ticket').innerHTML
 
-typePlace.addEventListener('click', function(){
-    typePlace.classList.add('check_place')
-    console.log('ghj')
+typePlace.forEach((item) => {
+    let valu = item.getAttribute('data-id')
+    item.addEventListener('click', function(){
+        if ((item.classList.value.at(-1) == "f") || (item.classList.value.at(-1) == "e")){
+            item.classList.remove('check_place_off')
+            item.classList.add('check_place_on')
+
+            let foundValue = truePlaces.indexOf(valu);
+            if (foundValue == -1) {
+                truePlaces.push(valu)
+            }
+
+        }else{
+            item.classList.remove('check_place_on')
+            item.classList.add('check_place_off')
+            let foundValue = truePlaces.indexOf(valu);
+            if (foundValue !== -1) {
+                truePlaces.splice(foundValue, 1)
+            }
+        }
+        console.log(valu , item.classList.value, truePlaces, foundValue)
+        bronePlaces.value = truePlaces
+        priceBilets.innerHTML = "Цена: " + truePlaces.length*pricePerTicket + " руб"
+    })
 })

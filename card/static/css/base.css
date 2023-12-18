@@ -135,9 +135,11 @@ body {
 }
 
 #hall_rows{
-    display: inline-block;
-    width: 100%
-    justify-content: center;
+    /* display: inline-block;
+    width: 100%;
+    justify-content: center; */
+    margin-top: 5%;
+    text-align: center;
 }
 
 #hall_rows a{
@@ -160,6 +162,12 @@ body {
     width: 60%;
     text-align: center;
 }
-#check_place {
-    color:#ff0000;
+#price_per_ticket{
+    float: left;
+}
+.check_place_on {
+    fill: #ff0000;
+}
+.check_place_off {
+    fill:  #000;
 }
