@@ -1,8 +1,35 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-    <div>
-        {% csrf.token %}
-        {{ form.as_p }}
-    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class='inputs_parameters_move'>
+            <div class='parameters_move'>
+                <h4>Введите номер телефона</h4>
+                <input id='phone_valid' class='input' value="" type="text">
+                <p id='phone_error' hidden >Данные введены не корректно!</p>
+            </div>
+            <div class='parameters_move'>
+                <h4>Введите номер Email</h4>
+                <input id='email_valid' class='input' value="" type="text">
+                <p id='email_error' hidden >Данные введены не корректно!</p>            
+            </div>
+            <div class='parameters_move'>
+                <h4>Введите свой возаст</h4>
+                <input id='age_valid' class='input' value="" type="text">
+                <p id='age_error' hidden >Данные введены не корректно!</p>            
+            </div>
+            <div class='parameters_move'>
+                <h4>Введите свой город</h4>
+                <input id='city_valid' class='input' value="" type="text">
+                <p id='city_error' hidden >Данные введены не корректно!</p>            
+            </div>
+            <div class='parameters_move'>
+                <input hidden class='input' value="" type="text">           
+            </div>
+        </div>
+        <button type='submit'> 
+            <p>Сохранить</p>
+        </button>
+    </form>
 {% endblock %}

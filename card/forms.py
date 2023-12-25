@@ -1,5 +1,5 @@
 from django import forms
-from .models import Film, Cinema, Hall
+from .models import Film, Cinema, Hall, CustomUser
 from django.contrib.auth.forms import UserCreationForm
 # from .models import MyUser
 
@@ -17,6 +17,11 @@ class CinemaHall(forms.ModelForm):
     class Meta:
         model = Hall
         fields = ['cinema_name', 'time', 'price', 'format', 'rows', 'places']
+    
+class CustomUserForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('phone', 'email', 'is_moderator', 'date_birth', 'city')
 
 # class RegisterForm(UserCreationForm):
 #     age = forms.DateTimeField

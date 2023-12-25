@@ -69,15 +69,7 @@ def hall_detal(request, pk):
 
     return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places})
 
-# def register(request):
-#     if request.method == 'POST':
-#         form = RegisterForm(request.Post)
-#         if form.is_valid():
-#             user = form.save()
-#             login(request, user)
-#             return redirect('main_list')
-#     else:
-#         form = RegisterForm()
-#     return render(request,'auth/register.html', {"form": form})
-
+def register(request):
+    return render(request,'auth/register.html', {})
+    
 # TODO: Дописать отображение для логина

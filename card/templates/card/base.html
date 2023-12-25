@@ -17,10 +17,12 @@
             <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
             <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
             <a id='logout' href="{% url 'logout' %}">Log out</a>
+            <a href="{% url 'register'%}">Регистрация</a>
         </div>
     </header>
     {% block content %}
     {% endblock %}
 </body>
 <script src={%static "js/hall.js"%}></script>
+<script src={%static "js/valid.js"%}></script>
 </html>

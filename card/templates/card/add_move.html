@@ -2,7 +2,7 @@
 
 {% block content %}
     <div><p>Добавить фильм</p></div>
-    <div id='inputs_parameters_move'>
+    <div class='inputs_parameters_move'>
         <form method="post">
             {% csrf_token %}
             <div class='parameters_move'>
@@ -35,5 +35,5 @@
             </div>
         </from>
     </div>
-    <button id='button_done' type='submit'>Готово</button>
+    <button class='button_done' type='submit'>Готово</button>
 {% endblock %}  

@@ -38,19 +38,20 @@ body {
     margin-left: 58%;
 }
 
-#inputs_parameters_move { /*Поля для ввода*/
+.inputs_parameters_move { /*Поля для ввода*/
     margin-left: 2%;
     margin-bottom: 8%;
 }
 .input { /*Поле для ввода*/
-    height: 5%;
+    height: 20px;
     width: 25%;
     background-color: #383838;
     border: solid 2px #ff0000;
     border-radius: 8px;
     margin-left: 1%;
+    color:#fff;
 }
-#button_done {
+.button_done {
     width: 10%;
     padding-top: 0.5%;
     padding-bottom: 0.5%;

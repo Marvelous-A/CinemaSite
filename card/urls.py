@@ -11,5 +11,6 @@ urlpatterns = [
     path('hall_detal/<int:pk>/', views.hall_detal, name='hall_detal'),
     path('login/', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
+    path('register', views.register ,name='register'),
     #path('register/', views.register, name='register')
 ]
