@@ -18,17 +18,17 @@ def login_view(request):
     else:
         return render(request, 'auth/login.html')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def main_list(request):
     return render(request, 'card/main_list.html', {})
   
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def tickets_films(request):
     films = Film.objects.all()
     return render(request, 'card/tickets_films.html', {'films': films})
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
     cinemas_True = films.cinemas_detals.split(';')

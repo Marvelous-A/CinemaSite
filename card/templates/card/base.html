@@ -11,14 +11,22 @@
 <body>
     <header id='header'>
         <h3>CINEMA</h3>
-        <div id='button_base'>
-            <a id='admin' href="/admin">Admin</a>
-            <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
-            <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
-            <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-            <a id='logout' href="{% url 'logout' %}">Log out</a>
-            <a href="{% url 'register'%}">Регистрация</a>
-        </div>
+        {% if user.is_authenticated %}
+            <div id='button_base'>
+                <a id='admin' href="/admin">Admin</a>
+                <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
+                <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
+                <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
+                <a id='logout' href="{% url 'logout' %}">Log out</a>
+            </div>
+        {% else %}
+            <div id='button_base'>
+                <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
+                <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
+                <a id='login' href="{% url 'login' %}">Log in</a>
+                <a href="{% url 'register'%}">Регистрация</a>
+            </div>
+        {% endif %}
     </header>
     {% block content %}
     {% endblock %}

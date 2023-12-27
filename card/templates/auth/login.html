@@ -1,18 +1,24 @@
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form method="post" action="{% url 'login' %}">
-        {% csrf_token %}
-    <label for="username">Имя пользователя:</label>
-    <input type="text" name="username" id="username">
-    <label for="password">Пароль:</label>
-    <input type="password" name="password" id="password">
-    <button type="submit">Войти</button>
-    </form>
-    <!-- Дополнительные ссылки -->
-    {% comment %} <p><a href="{% url 'password_reset' %}">Forgot password?</a></p> {% endcomment %}
-</body>
-</html>
+{% extends "card/base.html" %}
+
+{% block content %}
+    <html>
+        <head>
+            <title>Login</title>
+        </head>
+        <body>
+            <div>
+                <h2>Login</h2>
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <label for="username">Имя пользователя:</label>
+                    <input class='input' type="text" name="username" id="username">
+                    <label for="password">Пароль:</label>
+                    <input class='input' type="password" name="password" id="password">
+                    <button type="submit">Войти</button>
+                </form>
+            </div>
+            <!-- Дополнительные ссылки -->
+            {% comment %} <p><a href="{% url 'password_reset' %}">Forgot password?</a></p> {% endcomment %}
+        </body>
+    </html>
+{% endblock %}
