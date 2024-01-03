@@ -1,10 +1,13 @@
-<html>
-<head>
-    <title>Login</title>
-</head>
-<body>
-    <h2>Logout</h2>
-    <!-- Дополнительные ссылки -->
-    {% comment %} <p><a href="{% url 'password_reset' %}">Forgot password?</a></p> {% endcomment %}
-</body>
-</html>
+{% extends "card/base.html" %}
+
+{% block content %}
+    <html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>Вы вышли из аккаунта</h1>
+        <a href="{% url 'login' %}">Далее</a>
+    </body>
+    </html>
+{% endblock %}

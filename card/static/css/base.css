@@ -33,7 +33,8 @@ body {
 
 #button_base {
     height: 30%;
-    width: 42%;
+    width: 60%;
+    float: right;
     text-align: center;
     margin-left: 58%;
 }

@@ -3,6 +3,7 @@ let foundValue = -1
 let typePlace = document.querySelectorAll('.place')
 let bronePlaces = document.getElementById('brone_places')
 let priceBilets = document.getElementById('price_tickets')
+let resaultPrice = document.getElementById('resault_price')
 let pricePerTicket = document.getElementById('price_per_ticket').innerHTML
 
 typePlace.forEach((item) => {
@@ -27,6 +28,7 @@ typePlace.forEach((item) => {
         }
         console.log(valu , item.classList.value, truePlaces, foundValue)
         bronePlaces.value = truePlaces
+        resault_price.value = truePlaces.length*pricePerTicket
         priceBilets.innerHTML = "Цена: " + truePlaces.length*pricePerTicket + " руб"
     })
 })

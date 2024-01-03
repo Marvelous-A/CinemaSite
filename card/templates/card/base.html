@@ -17,13 +17,14 @@
                 <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
                 <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-                <a id='logout' href="{% url 'logout' %}">Log out</a>
+                <a href="{% url 'update_profile' %}" >Изменить профиль</a>
+                <a id='logout' href="{% url 'logout' %}">Выход</a>
             </div>
         {% else %}
             <div id='button_base'>
                 <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-                <a id='login' href="{% url 'login' %}">Log in</a>
+                <a id='login' href="{% url 'login' %}">Вход</a>
                 <a href="{% url 'register'%}">Регистрация</a>
             </div>
         {% endif %}
