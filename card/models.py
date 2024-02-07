@@ -1,6 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractUser
+#from django.utils.translation import gettext_lazy as _
 import re
 
 class Film(models.Model):
@@ -46,27 +45,24 @@ class Hall(models.Model):
     def __str__(self):
         return f'Tel: {self.cinema_name} {self.time} {self.price}р {self.format}'
 
-class CustomUser(AbstractUser):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15)
-    date_birth = models.DateField()
-    city = models.CharField(max_length = 150)
+class Profile(models.Model):
+    phone_number = models.CharField(max_length=12)
+    email = models.CharField(max_length=150)
+    birth_date = models.CharField(max_length=150)
+    city = models.CharField(max_length=150)
 
-
-    def validate_phone_number(self):
-        if self.phone[0] == '+' and re.fullmatch(r'[0-9]{11,15}', self.phone):
-            self.phone = self.phone[0:2]+'('+self.phone[2:5]+')'+self.phone[5:8]+'-'+self.phone[8:10]+'-'+self.phone[10:]
-            return True
-        elif self.phone[0] != '+' and re.fullmatch(r'[0-9]{11,15}', self.phone):
-            self.phone = self.phone[0:1]+'('+self.phone[1:4]+')'+self.phone[4:7]+'-'+self.phone[7:9]+'-'+self.phone[9:]
-            return True
-        else: return False
-    
-    def city_validate(self):
-        if re.fullmatch(r'[А-Я][а-яА-Я-]+', self.city):
-            return True
-        else: 
-            return False
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.user.username
+        return f'email: {self.email}'
+    
+class Payment(models.Model):
+    brone_places = models.CharField(max_length=550)
+    resault_price = models.CharField(max_length=550)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'resault price: {self.resault_price}'

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall
-from .forms import FilmForm#, RegisterForm
+from .models import Film, Cinema, Hall, Payment
+from .forms import FilmForm, ProfileForm, PaymentForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
@@ -18,17 +18,17 @@ def login_view(request):
     else:
         return render(request, 'auth/login.html')
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def main_list(request):
     return render(request, 'card/main_list.html', {})
   
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def tickets_films(request):
     films = Film.objects.all()
     return render(request, 'card/tickets_films.html', {'films': films})
 
-@login_required(login_url='login')
+# @login_required(login_url='login')
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
     cinemas_True = films.cinemas_detals.split(';')
@@ -65,11 +65,34 @@ def hall_detal(request, pk):
         for j in range(halls.places):
             row.append(f'{i}, {j}')
         places.append(row)
-    print(places)
-
+    if request.method == "POST":
+        request.POST.get('brone_places')
+        request.POST.get('resault_price')
+        form_payment = PaymentForm(request.POST)
+        if form_payment.is_valid():
+            form_payment.save()
+        else:
+            print(form_payment.errors.as_data())
+        return redirect('pay')
     return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places})
 
+def pay(request):
+    return render(request, 'payment/pay.html', {})
+
 def register(request):
+    if request.method == 'POST':
+        request.POST.get('phone_number')
+        request.POST.get('email')
+        request.POST.get('birth_date')
+        request.POST.get('city')
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors.as_data())
+        return redirect('main_list')
     return render(request,'auth/register.html', {})
-    
-# TODO: Дописать отображение для логина
+
+@login_required
+def update_profile(request):
+    return render(request, 'auth/update_profile.html', {})

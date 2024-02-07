@@ -1,33 +1,33 @@
-{% extends "cardHtml/base.html" %}
+{% extends "card/base.html" %}
 
 {% block content %}
     <form method="post">
         {% csrf_token %}
-        <div class='inputs_parameters_move'>
+        {% comment %} <div class='inputs_parameters_move'>
             <div class='parameters_move'>
-                <h4>Введите номер телефона</h4>
-                <input id='phone_valid' class='input' value="" type="text" name="phone_number">
+                <h4>Введите новый номер телефона</h4>
+                <input id='phone_valid' class='input' value="" type="text" >
                 <p id='phone_error' hidden >Данные введены не корректно!</p>
             </div>
             <div class='parameters_move'>
-                <h4>Введите номер Email</h4>
-                <input id='email_valid' class='input' value="" type="text" name="email">
+                <h4>Введите новый Email</h4>
+                <input id='email_valid' class='input' value="" type="text">
                 <p id='email_error' hidden >Данные введены не корректно!</p>            
             </div>
             <div class='parameters_move'>
-                <h4>Введите свой возаст</h4>
-                <input id='age_valid' class='input' value="" type="text" name="birth_date">
+                <h4>Введите свой  новый возаст</h4>
+                <input id='age_valid' class='input' value="" type="text">
                 <p id='age_error' hidden >Данные введены не корректно!</p>            
             </div>
             <div class='parameters_move'>
-                <h4>Введите свой город</h4>
-                <input id='city_valid' class='input' value="" type="text" name="city">
+                <h4>Введите свой  новый город</h4>
+                <input id='city_valid' class='input' value="" type="text">
                 <p id='city_error' hidden >Данные введены не корректно!</p>            
             </div>
             <div class='parameters_move'>
                 <input hidden class='input' value="" type="text">           
             </div>
-        </div>
+        </div> {% endcomment %}
         <button type='submit'> 
             <p>Сохранить</p>
         </button>

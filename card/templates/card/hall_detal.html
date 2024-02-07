@@ -21,7 +21,8 @@
     <p id="price_tickets">Цена: 0 руб</p>
     <form method="post">
         {% csrf_token %}
-        <input type='text' id="brone_places">
-        <button type='submit'>Далее</button>
+        <input hidden type='text' id="brone_places" name="brone_places">
+        <input hidden type='text' id="resault_price" name="resault_price">
+        <button type='submit'>Оплатить</button>
     </form>
 {% endblock %}
