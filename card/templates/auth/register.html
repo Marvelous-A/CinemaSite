@@ -5,14 +5,25 @@
         {% csrf_token %}
         <div class='inputs_parameters_move'>
             <div class='parameters_move'>
+                <h4>Имя пользователя</h4>
+                <input id='username' class='input' value="" type="text" name="username">
+            </div>
+            <div class='parameters_move'>
+                <h4>Введите Email</h4>
+                <input id='email' class='input' value="" type="text" name="email">
+            </div>
+            <div class='parameters_move'>
+                <h4>Введите пароль</h4>
+                <input id='password1' class='input' value="" type="password" name="password1">
+            </div>
+            <div class='parameters_move'>
+                <h4>Повторите ранее введенный пароль</h4>
+                <input id='password2' class='input' value="" type="password" name="password2">
+            </div>
+            <div class='parameters_move'>
                 <h4>Введите номер телефона</h4>
                 <input id='phone_valid' class='input' value="" type="text" name="phone_number">
                 <p id='phone_error' hidden >Данные введены не корректно!</p>
-            </div>
-            <div class='parameters_move'>
-                <h4>Введите номер Email</h4>
-                <input id='email_valid' class='input' value="" type="text" name="email">
-                <p id='email_error' hidden >Данные введены не корректно!</p>            
             </div>
             <div class='parameters_move'>
                 <h4>Введите свой возаст</h4>
@@ -23,9 +34,6 @@
                 <h4>Введите свой город</h4>
                 <input id='city_valid' class='input' value="" type="text" name="city">
                 <p id='city_error' hidden >Данные введены не корректно!</p>            
-            </div>
-            <div class='parameters_move'>
-                <input hidden class='input' value="" type="text">           
             </div>
         </div>
         <button type='submit'> 

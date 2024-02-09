@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Payment
-from .forms import FilmForm, ProfileForm, PaymentForm
+from .models import Film, Cinema, Hall, Payment, User
+from .forms import FilmForm, ProfileForm, PaymentForm, UserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
@@ -81,18 +81,26 @@ def pay(request):
 
 def register(request):
     if request.method == 'POST':
-        request.POST.get('phone_number')
-        request.POST.get('email')
-        request.POST.get('birth_date')
-        request.POST.get('city')
-        form = ProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors.as_data())
-        return redirect('main_list')
-    return render(request,'auth/register.html', {})
+        user_form = UserForm(request.POST)
+        profile_form = ProfileForm(request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            profile = profile_form.save(commit=False)
+            profile.user = user
+            profile.save()
 
+            login(request, user)
+
+            return redirect('main_list')
+    else:
+        user_form = UserForm()
+        profile_form = ProfileForm()
+     
+    context = {
+        user_form: user_form,
+        profile_form: profile_form
+    }
+    return render(request, 'auth/register.html')
 @login_required
 def update_profile(request):
     return render(request, 'auth/update_profile.html', {})
