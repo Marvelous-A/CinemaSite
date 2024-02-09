@@ -92,6 +92,9 @@ def register(request):
             login(request, user)
 
             return redirect('main_list')
+        else:
+            print(user_form.error_messages)
+            print(profile_form.error_messages)
     else:
         user_form = UserForm()
         profile_form = ProfileForm()
