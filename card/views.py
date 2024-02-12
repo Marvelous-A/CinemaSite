@@ -3,6 +3,7 @@ from .models import Film, Cinema, Hall, Payment, User
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 
 def login_view(request):
     if request.method == 'POST':
@@ -79,22 +80,19 @@ def hall_detal(request, pk):
 def pay(request):
     return render(request, 'payment/pay.html', {})
 
+@transaction.atomic
 def register(request):
+
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            profile = profile_form.save(commit=False)
-            profile.user = user
-            profile.save()
-
+            profile_form.save()
             login(request, user)
-
             return redirect('main_list')
         else:
             print(user_form.error_messages)
-            print(profile_form.error_messages)
     else:
         user_form = UserForm()
         profile_form = ProfileForm()
@@ -104,6 +102,7 @@ def register(request):
         profile_form: profile_form
     }
     return render(request, 'auth/register.html')
+
 @login_required
 def update_profile(request):
     return render(request, 'auth/update_profile.html', {})

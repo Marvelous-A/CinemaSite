@@ -53,6 +53,9 @@ class Profile(models.Model):
     birth_date = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'Profile: {self.user.username}'
 
@@ -64,6 +67,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kawrgs):
     instance.profile.save()
+
 
 class Payment(models.Model):
     brone_places = models.CharField(max_length=550)
