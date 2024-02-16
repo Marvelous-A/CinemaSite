@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Payment, User
+from .models import Film, Cinema, Hall, Payment, User, Profile
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -19,17 +19,18 @@ def login_view(request):
     else:
         return render(request, 'auth/login.html')
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def main_list(request):
+    print(request.user)
     return render(request, 'card/main_list.html', {})
   
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def tickets_films(request):
     films = Film.objects.all()
     return render(request, 'card/tickets_films.html', {'films': films})
 
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
     cinemas_True = films.cinemas_detals.split(';')
@@ -82,13 +83,18 @@ def pay(request):
 
 @transaction.atomic
 def register(request):
-
     if request.method == 'POST':
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            profile_form.save()
+            
+            ## Сохранение данных пользователя
+            profile = user.profile
+            for field in profile_form.cleaned_data:
+                setattr(profile, field, profile_form.cleaned_data[field])
+            profile.save() # то же самое что instance.profile.save() в сигналах
+            
             login(request, user)
             return redirect('main_list')
         else:
@@ -96,7 +102,6 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = ProfileForm()
-     
     context = {
         user_form: user_form,
         profile_form: profile_form
