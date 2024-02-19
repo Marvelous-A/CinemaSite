@@ -108,6 +108,33 @@ def register(request):
     }
     return render(request, 'auth/register.html')
 
+# @login_required
+# def update_profile(request):
+#     return render(request, 'auth/update_profile.html', {})
+
 @login_required
+# @transaction.atomic
 def update_profile(request):
-    return render(request, 'auth/update_profile.html', {})
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if profile_form.is_valid() and user_form.is_valid(): #Нужно вводить все параметры включая пороль
+            user_form.save()
+            profile_form.save()
+            # messages.success(request, _('Your profile was successfully updated!'))
+            print('Your profile was successfully updated!')
+            return redirect('main_list')
+        else:
+            # messages.error(request, _('Please correct the error below.'))
+            print('Please correct the error below.')
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'auth/update_profile.html', {
+        'user_form': user_form,
+        'profile_form': profile_form
+    })
+
+@login_required
+def profile(request):
+    return render(request, 'card/profile.html', {})

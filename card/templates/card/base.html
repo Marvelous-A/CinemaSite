@@ -19,7 +19,7 @@
                 <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
                 <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-                <a href="{% url 'update_profile' %}" >Изменить профиль</a>
+                <a href="{% url 'profile' %}" >Профиль</a>
                 <a id='logout' href="{% url 'logout' %}">Выход</a>
             </div>
         {% else %}
@@ -36,4 +36,5 @@
 </body>
 <script src={%static "js/hall.js"%}></script>
 <script src={%static "js/valid.js"%}></script>
+<script src={%static "js/category.js"%}></script>
 </html>

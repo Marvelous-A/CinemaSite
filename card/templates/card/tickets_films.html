@@ -1,11 +1,27 @@
 {% extends "card/base.html" %}
 
 {% block content %}
+    <fieldset>
+        <legend>Жанры</legend>
+        <div>
+            <input id='thriller' class='category_checkbox' value="thriller" type="checkbox"/>
+            <label for="thriller">Триллер</label>
+        </div>
+        <div>
+            <input id='horror' class='category_checkbox' value="horror" type="checkbox"/>
+            <label for="horror">Ужасы</label>
+        </div>
+        <div>
+            <input id='drama' class='category_checkbox' value="drama" type="checkbox"/>
+            <label for="drama">Драма</label>
+        </div>
+    </fieldset>  
     <div class='conteiner'>
         {% for film in films %}
             <div class='film_poster'>
                 <img class='foto' src={{film.img_url}} alt='фото'\>
                 <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{film.title}}</a>
+                <input  type="text" value="{{film.category}}"/>
             </div>
         {% endfor %}
     </div>

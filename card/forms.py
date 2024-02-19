@@ -1,11 +1,16 @@
 from django import forms
-from .models import Film, Cinema, Hall, Profile, Payment, User
+from .models import Film, Cinema, Hall, Profile, Payment, User, Category
 from django.contrib.auth.forms import UserCreationForm
 
 class FilmForm(forms.ModelForm):
     class Meta:
         model = Film
         fields = ['title', 'img_url','discription', 'year', 'country', 'director', 'duration', 'cinemas_detals']
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['category_id', 'category_name', 'category_discription']
 
 class CinemaForm(forms.ModelForm):
     class Meta:
@@ -21,7 +26,7 @@ class CinemaHall(forms.ModelForm):
 class UserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2', 'first_name', 'last_name')
 
 class ProfileForm(forms.ModelForm):
     class Meta:

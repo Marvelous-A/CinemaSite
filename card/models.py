@@ -4,8 +4,20 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import re
 
+class Category(models.Model):
+    category_id = models.IntegerField(null=True)
+    category_name = models.CharField(max_length=50)
+    category_discription = models.CharField(max_length=150)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Category: {self.category_name}'
+    
 class Film(models.Model):
     title = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     img_url = models.URLField()
     discription =  models.CharField(max_length=1000)
     year = models.IntegerField(null=True)
@@ -18,7 +30,7 @@ class Film(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Tel: {self.title}'
+        return f'Film: {self.title}'
 
 class Cinema(models.Model):
     name = models.CharField(max_length=60)

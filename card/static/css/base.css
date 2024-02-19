@@ -89,6 +89,7 @@ body {
     text-decoration: none;
     color: #000;
     font-size: 20px;
+    float: left;
 }
 .foto {
     height: 429.5px;/*859*/
