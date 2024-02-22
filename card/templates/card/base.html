@@ -15,9 +15,9 @@
             <div id='button_base'>
                 {% if user.is_superuser %}
                     <a id='admin' href="/admin">Admin</a>
+                    <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 {% endif %}
                 <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
-                <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
                 <a href="{% url 'profile' %}" >Профиль</a>
                 <a id='logout' href="{% url 'logout' %}">Выход</a>

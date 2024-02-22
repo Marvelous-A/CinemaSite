@@ -5,7 +5,7 @@ from django.dispatch import receiver
 import re
 
 class Category(models.Model):
-    category_id = models.IntegerField(null=True)
+    category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=50)
     category_discription = models.CharField(max_length=150)
 
@@ -17,7 +17,7 @@ class Category(models.Model):
     
 class Film(models.Model):
     title = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category)
     img_url = models.URLField()
     discription =  models.CharField(max_length=1000)
     year = models.IntegerField(null=True)
