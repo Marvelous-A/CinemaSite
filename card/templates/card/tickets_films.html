@@ -21,7 +21,9 @@
             <div class='film_poster'>
                 <img class='foto' src={{film.img_url}} alt='фото'\>
                 <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{film.title}}</a>
-                <input  type="text" value="{{film.category}}"/>
+                {%for category in film.category.all%}
+                    <a>{{category.category_name}}</a>
+                {%endfor%}
             </div>
         {% endfor %}
     </div>

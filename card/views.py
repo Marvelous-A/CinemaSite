@@ -27,7 +27,12 @@ def main_list(request):
 
 @login_required(login_url='login')
 def tickets_films(request):
-    films = Film.objects.all()
+    films = list(
+        Film.objects
+            .all()
+            .prefetch_related('category')
+            .values('pk','img_url','title', 'category__category_name')
+    )
     return render(request, 'card/tickets_films.html', {'films': films})
 
 @login_required(login_url='login')
