@@ -13,7 +13,7 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Category: {self.category_name}'
+        return f'{self.category_name}'
     
 class Film(models.Model):
     title = models.CharField(max_length=50)
@@ -31,6 +31,8 @@ class Film(models.Model):
 
     def __str__(self):
         return f'Film: {self.title}'
+
+
 
 class Cinema(models.Model):
     name = models.CharField(max_length=60)

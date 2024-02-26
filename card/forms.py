@@ -37,3 +37,10 @@ class PaymentForm(forms.ModelForm):
     class Meta:
         model = Payment
         fields = ['brone_places', 'resault_price']
+
+class CategoryFilterForm(forms.Form):
+    categories = forms.ModelMultipleChoiceField(
+        queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )

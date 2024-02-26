@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall, Payment, User, Profile
-from .forms import FilmForm, ProfileForm, PaymentForm, UserForm
+from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, CategoryFilterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -11,7 +12,7 @@ def login_view(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request,user)
+            login(request, user)
             return redirect('main_list')  # Перенаправление на главную страницу
         else:
             # Возвращение сообщения об ошибке
@@ -19,21 +20,29 @@ def login_view(request):
     else:
         return render(request, 'auth/login.html')
 
+
 @login_required(login_url='login')
 def main_list(request):
     print(request.user)
     return render(request, 'card/main_list.html', {})
-  
+
 
 @login_required(login_url='login')
 def tickets_films(request):
-    films = list(
-        Film.objects
-            .all()
-            .prefetch_related('category')
-            .values('pk','img_url','title', 'category__category_name')
-    )
-    return render(request, 'card/tickets_films.html', {'films': films})
+    films = Film.objects\
+        .all()\
+        .prefetch_related('category')\
+        .values('pk', 'img_url', 'title', 'category__category_name')
+
+    Category_Choose_Form = CategoryFilterForm(request.GET)
+
+    if Category_Choose_Form.is_valid():
+        categories = Category_Choose_Form.cleaned_data.get('categories')
+        if categories:
+            films = films.filter(category__in=categories)
+            
+    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form': Category_Choose_Form})
+
 
 @login_required(login_url='login')
 def film_detal(request, pk):
@@ -42,6 +51,7 @@ def film_detal(request, pk):
     cinemas = Cinema.objects.all()
     halls = Hall.objects.all()
     return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'cinemas_True': cinemas_True, 'halls': halls})
+
 
 @login_required(login_url='login')
 def add_move(request):
@@ -58,10 +68,12 @@ def add_move(request):
         form = FilmForm()
     return render(request, 'card/add_move.html', {})
 
+
 @login_required(login_url='login')
 def logout_view(request):
     logout(request)
     return render(request, 'card/main_list.html', {})
+
 
 @login_required(login_url='login')
 def hall_detal(request, pk):
@@ -83,8 +95,10 @@ def hall_detal(request, pk):
         return redirect('pay')
     return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places})
 
+
 def pay(request):
     return render(request, 'payment/pay.html', {})
+
 
 @transaction.atomic
 def register(request):
@@ -93,13 +107,13 @@ def register(request):
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            
-            ## Сохранение данных пользователя
+
+            # Сохранение данных пользователя
             profile = user.profile
             for field in profile_form.cleaned_data:
                 setattr(profile, field, profile_form.cleaned_data[field])
-            profile.save() # то же самое что instance.profile.save() в сигналах
-            
+            profile.save()  # то же самое что instance.profile.save() в сигналах
+
             login(request, user)
             return redirect('main_list')
         else:
@@ -117,13 +131,14 @@ def register(request):
 # def update_profile(request):
 #     return render(request, 'auth/update_profile.html', {})
 
+
 @login_required
 # @transaction.atomic
 def update_profile(request):
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if profile_form.is_valid() and user_form.is_valid(): #Нужно вводить все параметры включая пороль
+        if profile_form.is_valid() and user_form.is_valid():  # Нужно вводить все параметры включая пороль
             user_form.save()
             profile_form.save()
             # messages.success(request, _('Your profile was successfully updated!'))
@@ -139,6 +154,7 @@ def update_profile(request):
         'user_form': user_form,
         'profile_form': profile_form
     })
+
 
 @login_required
 def profile(request):
