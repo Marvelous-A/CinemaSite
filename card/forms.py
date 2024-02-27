@@ -1,5 +1,5 @@
 from django import forms
-from .models import Film, Cinema, Hall, Profile, Payment, User, Category
+from .models import Film, Cinema, Hall, Profile, Payment, User, Category, Director
 from django.contrib.auth.forms import UserCreationForm
 
 class FilmForm(forms.ModelForm):
@@ -11,6 +11,11 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['category_id', 'category_name', 'category_discription']
+
+class DirectorForm(forms.ModelForm):
+    class Meta:
+        model = Director
+        fields = ['director_name', 'director_id']
 
 class CinemaForm(forms.ModelForm):
     class Meta:
@@ -41,6 +46,13 @@ class PaymentForm(forms.ModelForm):
 class CategoryFilterForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+
+class DirectorFilterForm(forms.Form):
+    directors = forms.ModelMultipleChoiceField(
+        queryset=Director.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )

@@ -15,6 +15,16 @@ class Category(models.Model):
     def __str__(self):
         return f'{self.category_name}'
     
+class Director(models.Model):
+    director_name = models.CharField(max_length = 50)
+    director_id = models.CharField(max_length=50)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'{self.director_name}'
+    
 class Film(models.Model):
     title = models.CharField(max_length=50)
     category = models.ManyToManyField(Category)
@@ -22,7 +32,7 @@ class Film(models.Model):
     discription =  models.CharField(max_length=1000)
     year = models.IntegerField(null=True)
     country = models.CharField(max_length=50)
-    director = models.CharField(max_length=50)
+    director = models.ManyToManyField(Director)
     duration = models.CharField(max_length=20)
     cinemas_detals = models.CharField(max_length=1000)
 
@@ -31,8 +41,6 @@ class Film(models.Model):
 
     def __str__(self):
         return f'Film: {self.title}'
-
-
 
 class Cinema(models.Model):
     name = models.CharField(max_length=60)

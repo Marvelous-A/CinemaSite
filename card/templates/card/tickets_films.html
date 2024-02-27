@@ -1,22 +1,32 @@
 {% extends "card/base.html" %}
 
 {% block content %}
+    <div id='div_input'> 
+        <input type='text' id="search-input">
+        <button id='submit_input' type='submit'>Поиск</button>
+    </div>
     <fieldset>
         <legend>Жанры</legend>
-        <form id="fiter-form" method="get">
-            {{ filter_form.as_p }}
+        <form id='fiter-form_category' method="get">
+            {{ filter_form_category.as_p }}
         <form>
+    </fieldset>
+    <fieldset>
+        <legend>Режиссёры</legend>
+        <form id='fiter-form_director' method="get">
+            {{ filter_form_director.as_p }}
+            <button type="submit">Фильтровать</button>
+        <form>
+    </fieldset>
 
-
-    </fieldset>  
     <div class='conteiner'>
         {% for film in films %}
             <div class='film_poster'>
                 <img class='foto' src={{ film.img_url }} alt='фото'\>
                 <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{ film.title }}</a>
-                {% for category in film.category.all %}
+                {% comment %} {% for category in film.category.all %}
                     <a>{{ category.category_name }}</a>
-                {% endfor %}
+                {% endfor %} {% endcomment %}
             </div>
         {% endfor %}
     </div>
