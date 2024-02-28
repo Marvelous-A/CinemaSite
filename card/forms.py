@@ -49,10 +49,15 @@ class CategoryFilterForm(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-
-class DirectorFilterForm(forms.Form):
     directors = forms.ModelMultipleChoiceField(
         queryset=Director.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
+
+# class DirectorFilterForm(forms.Form):
+#     directors = forms.ModelMultipleChoiceField(
+#         queryset=Director.objects.all(),
+#         widget=forms.CheckboxSelectMultiple,
+#         required=False
+#     )

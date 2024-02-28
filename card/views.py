@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall, Payment, User, Profile
-from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, CategoryFilterForm, DirectorFilterForm
+from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, CategoryFilterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
@@ -31,22 +31,21 @@ def main_list(request):
 def tickets_films(request):
     films = Film.objects\
         .all()\
-        .prefetch_related('category')\
-        .values('pk', 'img_url', 'title', 'category__category_name')
+        .prefetch_related('category', 'director')\
+        .values('pk', 'img_url', 'title', 'category__category_name', 'director__director_name')
 
-    Category_Choose_Form = CategoryFilterForm(request.GET)
-    if Category_Choose_Form.is_valid():
-        categories = Category_Choose_Form.cleaned_data.get('categories')
-        if categories:
+    FilterForm = CategoryFilterForm(request.GET)
+    if FilterForm.is_valid():
+        categories = FilterForm.cleaned_data.get('categories')
+        directors = FilterForm.cleaned_data.get('directors')
+        if categories and directors:
+            films = films.filter(category__in=categories, director__in=directors)
+        elif categories:
             films = films.filter(category__in=categories)
-
-    Director_Choose_Form = DirectorFilterForm(request.GET)
-    if Director_Choose_Form.is_valid():
-        directors = Director_Choose_Form.cleaned_data.get('directors')
-        if directors:
+        elif directors:
             films = films.filter(director__in=directors)
             
-    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form_category': Category_Choose_Form, 'filter_form_director': Director_Choose_Form})
+    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form': FilterForm})#, 'filter_form_director': Director_Choose_Form})
 
 
 @login_required(login_url='login')

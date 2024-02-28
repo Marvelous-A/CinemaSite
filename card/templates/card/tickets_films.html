@@ -6,18 +6,18 @@
         <button id='submit_input' type='submit'>Поиск</button>
     </div>
     <fieldset>
-        <legend>Жанры</legend>
-        <form id='fiter-form_category' method="get">
-            {{ filter_form_category.as_p }}
+        <legend></legend>
+        <form id='fiter-form' method="get">
+            {{ filter_form.as_p }}
         <form>
     </fieldset>
-    <fieldset>
+    {% comment %} <fieldset>
         <legend>Режиссёры</legend>
         <form id='fiter-form_director' method="get">
             {{ filter_form_director.as_p }}
             <button type="submit">Фильтровать</button>
         <form>
-    </fieldset>
+    </fieldset> {% endcomment %}
 
     <div class='conteiner'>
         {% for film in films %}
