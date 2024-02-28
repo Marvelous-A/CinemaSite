@@ -45,7 +45,7 @@ def tickets_films(request):
         elif directors:
             films = films.filter(director__in=directors)
             
-    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form': FilterForm})#, 'filter_form_director': Director_Choose_Form})
+    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form': FilterForm})
 
 
 @login_required(login_url='login')

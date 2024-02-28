@@ -43,16 +43,18 @@ class PaymentForm(forms.ModelForm):
         model = Payment
         fields = ['brone_places', 'resault_price']
 
-class CategoryFilterForm(forms.Form):
+class FilterForm(forms.Form):
     categories = forms.ModelMultipleChoiceField(
         queryset=Category.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
+        label="Категории"
     )
     directors = forms.ModelMultipleChoiceField(
         queryset=Director.objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
+        label="Режисеры"
     )
 
 # class DirectorFilterForm(forms.Form):
