@@ -34,10 +34,10 @@ def tickets_films(request):
         .prefetch_related('category', 'director')\
         .values('pk', 'img_url', 'title', 'category__category_name', 'director__director_name')
 
-    FilterForm = FilterForm(request.GET)
-    if FilterForm.is_valid():
-        categories = FilterForm.cleaned_data.get('categories')
-        directors = FilterForm.cleaned_data.get('directors')
+    Filter = FilterForm(request.GET)
+    if Filter.is_valid():
+        categories = Filter.cleaned_data.get('categories')
+        directors = Filter.cleaned_data.get('directors')
         if categories and directors:
             films = films.filter(category__in=categories, director__in=directors)
         elif categories:
