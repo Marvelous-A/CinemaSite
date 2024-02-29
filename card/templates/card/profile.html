@@ -1,20 +1,22 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-    <h1>Профиль пользователя</h1>
-    <div>
-        {% if user.is_superuser == True %}
-            <li>Пользователь является "админом"</li>
-        {% else %}
-            <li>Вы обычный пользователь</li>
-        {% endif %}
-        <li>Имя пользователя - {{user.username}}</li>
-        <li>Имя - {{user.first_name}}</li>
-        <li>Фамилия - {{user.last_name}}</li>
-        <li>Email - {{user.email}}</li>
-        <li>Номер телефона - {{user.profile.phone_number}}</li>
-        <li>Возраст - {{user.profile.birth_date}}</li>
-        <li>Город - {{user.profile.city}}</li>
+    <div id='profile_title'>
+        <h1>Профиль пользователя</h1>
     </div>
-    <a href="{% url 'update_profile'%}"><button>Изменить парамерты пользователя</button></a>
+    <div id='profile_data'>
+        {% if user.is_superuser == True %}
+            <p>Пользователь является "админом"</p>
+        {% else %}
+            <p>Вы обычный пользователь</p>
+        {% endif %}
+        <p>Имя пользователя - {{user.username}}</p>
+        <p>Имя - {{user.first_name}}</p>
+        <p>Фамилия - {{user.last_name}}</p>
+        <p>Email - {{user.email}}</p>
+        <p>Номер телефона - {{user.profile.phone_number}}</p>
+        <p>Возраст - {{user.profile.birth_date}}</p>
+        <p>Город - {{user.profile.city}}</p>
+    </div>
+    <a id='button_update_profile' href="{% url 'update_profile'%}">Изменить парамерты пользователя</a>
 {% endblock %}

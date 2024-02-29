@@ -131,10 +131,6 @@ def register(request):
     }
     return render(request, 'auth/register.html')
 
-# @login_required
-# def update_profile(request):
-#     return render(request, 'auth/update_profile.html', {})
-
 
 @login_required
 # @transaction.atomic
