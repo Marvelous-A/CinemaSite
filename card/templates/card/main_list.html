@@ -1,5 +1,27 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-    <h1>Главная</h1>
-{% endblock %}  
+    <div id='div_input'> 
+        <input type='text' id="search-input">
+        <button id='submit_input' type='submit'>Поиск</button>
+        <button id='search_filter'>Расширенный поискк</button>
+    </div>
+    <fieldset id='search_fieldset' hidden>
+        <legend></legend>
+        <form id='fiter-form' method="get">
+            {{ filter_form.as_p }}
+        <form>
+    </fieldset>
+
+    <div class='conteiner'>
+        {% for film in films %}
+            <div class='film_poster'>
+                <a href="{% url 'film_detal' pk=film.pk %}">
+                    <img class='foto' src={{ film.img_url }} alt='фото'\>
+                </a>
+                <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{ film.title }}</a>
+                <p>???</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

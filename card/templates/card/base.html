@@ -17,14 +17,12 @@
                     <a id='admin' href="/admin">Admin</a>
                     <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 {% endif %}
-                <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
                 <a href="{% url 'profile' %}" >Профиль</a>
                 <a id='logout' href="{% url 'logout' %}">Выход</a>
             </div>
         {% else %}
             <div id='button_base'>
-                <a id='tickets' href="{% url 'tickets_films' %}" >Билеты</a>
                 <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
                 <a id='login' href="{% url 'login' %}">Вход</a>
                 <a href="{% url 'register'%}">Регистрация</a>
@@ -33,6 +31,12 @@
     </header>
     {% block content %}
     {% endblock %}
+    <footer>
+        <p>Андрей Яковенко</p>
+        <p>
+            Почта: <a href="mailto:mogneto.r@mail.ru">mogneto.r@mail.ru</a>.
+        </p>
+    </footer>
 </body>
 <script src={%static "js/hall.js"%}></script>
 <script src={%static "js/valid.js"%}></script>

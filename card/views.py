@@ -23,12 +23,6 @@ def login_view(request):
 
 @login_required(login_url='login')
 def main_list(request):
-    print(request.user)
-    return render(request, 'card/main_list.html', {})
-
-
-@login_required(login_url='login')
-def tickets_films(request):
     films = Film.objects\
         .all()\
         .prefetch_related('category', 'director')\
@@ -45,7 +39,7 @@ def tickets_films(request):
         elif directors:
             films = films.filter(director__in=directors)
             
-    return render(request, 'card/tickets_films.html', {'films': films, 'filter_form': FilterForm})
+    return render(request, 'card/main_list.html', {'films': films, 'filter_form': FilterForm})
 
 
 @login_required(login_url='login')

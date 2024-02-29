@@ -280,3 +280,6 @@ body {
 #button_update_profile:hover {
     color: black;
 }
+footer {
+    border-top: #fff;
+}
