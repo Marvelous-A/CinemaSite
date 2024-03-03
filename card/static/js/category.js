@@ -7,8 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-document.getElementById("search_filter").onclick = function(){
-    document.getElementById('search_fieldset').classList.remove('hidden')
-    // document.getElementById('search_fieldset').item.classList.add('check_place_on')
 
+let filter = document.getElementById("search_fieldset"); 
+document.getElementById("search_filter").onclick = function(){ 
+    if (filter.hasAttribute('hidden')){ 
+        filter.removeAttribute('hidden');  
+    }else{ 
+        filter.setAttribute('hidden', ''); 
+    } 
 };

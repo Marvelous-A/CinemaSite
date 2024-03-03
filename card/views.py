@@ -25,8 +25,12 @@ def login_view(request):
 def main_list(request):
     films = Film.objects\
         .all()\
-        .prefetch_related('category', 'director')\
-        .values('pk', 'img_url', 'title', 'category__category_name', 'director__director_name')
+        .prefetch_related('category', 'director')
+    
+    search_query = request.GET.get('search_query', '')
+
+    if search_query:
+        films = films.filter(title__icontains=search_query)# | films.filter(discription__icontains=search_query)
 
     Filter = FilterForm(request.GET)
     if Filter.is_valid():
@@ -39,7 +43,7 @@ def main_list(request):
         elif directors:
             films = films.filter(director__in=directors)
             
-    return render(request, 'card/main_list.html', {'films': films, 'filter_form': FilterForm})
+    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter})
 
 
 @login_required(login_url='login')
