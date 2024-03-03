@@ -5,14 +5,14 @@
         <img class='foto' src={{films.img_url}} alt='фото'\>
         <h3>{{films.title}}</h3>
         <h3>Год: {{films.year}}г.</h3>
-        <h3>Жанр:</h3>
+        <h3 style="display:inline">Жанр:</h3>
             {% for category in films.category.all %}
-                <h3>{{category}}</h3>
+                <h3 style="display:inline">{{category}}</h3>
             {% endfor %}
         <h3>Страна: {{films.country}}</h3>
-        <h3>Режиссёр:</h3>
+        <h3 style="display:inline">Режиссёр:</h3>
             {% for director in films.director.all %}
-                <h3>{{director}}</h3>
+                <h3 style="display:inline">{{director}}</h3>
             {% endfor %}
         <h3>Длительность: {{films.duration}}</h3>
         <h3>Описание:<br>{{films.discription}}</h3>

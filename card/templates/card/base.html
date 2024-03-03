@@ -14,24 +14,24 @@
         {% if user.is_authenticated %}
             <div id='button_base'>
                 {% if user.is_superuser %}
-                    <a id='admin' href="/admin">Admin</a>
-                    <a id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
+                    <a class='a_base' id='admin' href="/admin">Admin</a>
+                    <a class='a_base' id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
                 {% endif %}
-                <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-                <a href="{% url 'profile' %}" >Профиль</a>
-                <a id='logout' href="{% url 'logout' %}">Выход</a>
+                <a class='a_base' id='main_list' href="{% url 'main_list' %}" >Главная</a>
+                <a class='a_base' href="{% url 'profile' %}" >Профиль</a>
+                <a class='a_base' id='logout' href="{% url 'logout' %}">Выход</a>
             </div>
         {% else %}
             <div id='button_base'>
-                <a id='main_list' href="{% url 'main_list' %}" >Главная</a>
-                <a id='login' href="{% url 'login' %}">Вход</a>
-                <a href="{% url 'register'%}">Регистрация</a>
+                <a class='a_base' id='main_list' href="{% url 'main_list' %}" >Главная</a>
+                <a class='a_base' id='login' href="{% url 'login' %}">Вход</a>
+                <a class='a_base' href="{% url 'register'%}">Регистрация</a>
             </div>
         {% endif %}
     </header>
     {% block content %}
     {% endblock %}
-    <footer>
+    <footer id = "footer">
         <p>Андрей Яковенко</p>
         <p>
             Почта: <a href="mailto:mogneto.r@mail.ru">mogneto.r@mail.ru</a>.

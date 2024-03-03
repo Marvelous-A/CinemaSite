@@ -16,13 +16,16 @@
             </div>
         {% endfor%}
     </div>
-    <p>Цена за билет: </p>
-    <p id="price_per_ticket">{{halls.price}}</p>
-    <p id="price_tickets">Цена: 0 руб</p>
-    <form method="post">
-        {% csrf_token %}
-        <input hidden type='text' id="brone_places" name="brone_places">
-        <input hidden type='text' id="resault_price" name="resault_price">
-        <button type='submit'>Оплатить</button>
-    </form>
+    <div id='screen'>.</div>
+    <div id='payment_conteiner'>
+        <p style="display:inline">Цена за билет:</p>
+        <p style="display:inline" id="price_per_ticket">{{halls.price}}</p>
+        <p id="price_tickets">Цена: 0 руб</p>
+        <form method="post">
+            {% csrf_token %}
+            <input hidden type='text' id="brone_places" name="brone_places">
+            <input hidden type='text' id="resault_price" name="resault_price">
+            <button id = 'payment' type='submit'>Оплатить</button>
+        </form>
+    </div>
 {% endblock %}
