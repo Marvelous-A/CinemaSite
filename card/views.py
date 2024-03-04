@@ -28,7 +28,7 @@ def main_list(request):
         .prefetch_related('category', 'director')
     halls = Hall.objects.all()
     
-    search_query = request.GET.get('search_query', '')
+    search_query = request.GET.get('search_query', request.session.get('search_query', ''))
 
     if search_query:
         films = films.filter(title__icontains=search_query)
@@ -43,8 +43,10 @@ def main_list(request):
             films = films.filter(category__in=categories)
         elif directors:
             films = films.filter(director__in=directors)
-            
-    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls})
+    
+    
+
+    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'search_query': search_query})
 
 
 @login_required(login_url='login')

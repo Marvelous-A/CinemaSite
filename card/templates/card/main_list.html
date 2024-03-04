@@ -2,8 +2,8 @@
 
 {% block content %}
     <div id='div_input'>
-    <form method='get' > 
-        <input type='text' name="search_query" id="search-input">
+    <form method='get' id='search_bar' > 
+        <input type='text' name="search_query" id="search-input" value='{{ search_query}}'>
         <button id='submit_input' type='submit'>Поиск</button>
     </form>
         <button id='search_filter'>Расширенный поискк</button>

@@ -17,7 +17,6 @@ document.getElementById("search_filter").onclick = function(){
     } 
 };
 
-let inp = document.getElementById("search-input");
-inp.oninput = function() {
-    alert(inp.value)
-}
+document.getElementById('search-input').addEventListener('input', function() {
+    document.getElementById("search_bar").submit();
+});
