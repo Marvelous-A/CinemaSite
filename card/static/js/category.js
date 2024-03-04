@@ -16,3 +16,8 @@ document.getElementById("search_filter").onclick = function(){
         filter.setAttribute('hidden', ''); 
     } 
 };
+
+let inp = document.getElementById("search-input");
+inp.oninput = function() {
+    alert(inp.value)
+}
