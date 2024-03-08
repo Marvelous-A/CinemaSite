@@ -49,7 +49,7 @@ class Cinema(models.Model):
     phone = models.CharField(max_length=20)
     number_halls = models.IntegerField(null=True)
     # fk_cinema_halls	= models.ForeignKey('Hall', on_delete=models.PROTECT, null=True)
-    # fk_cinema_halls	= models.ManyToManyField('Hall')
+    fk_cinema_halls	= models.ManyToManyField('Hall')
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -65,7 +65,7 @@ class Hall(models.Model):
     format = models.CharField(max_length=5)
     rows = models.IntegerField(null=True)
     places = models.IntegerField(null=True)
-    fk_halls_cinema	= models.ForeignKey('Cinema', on_delete=models.PROTECT, null=True)
+    fk_halls_cinema	= models.ForeignKey(Cinema, on_delete=models.PROTECT, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -75,8 +75,8 @@ class Hall(models.Model):
 
 class Halls_Films(models.Model):
     id = models.IntegerField(primary_key=True)
-    hall_id = models.IntegerField(null=True)
-    film_id = models.IntegerField(null=True)
+    hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
+    film_id = models.ForeignKey(Film, on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

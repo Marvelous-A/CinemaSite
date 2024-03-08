@@ -54,9 +54,7 @@ def main_list(request):
 @login_required(login_url='login')
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
-    # cinemas_True = films.cinemas_detals.split(';') 'cinemas_True': cinemas_True
     cinemas = Cinema.objects.all()
-    # cinema_fk_cinema_halls = cinemas.fk_cinema_halls "cinema_fk_cinema_halls": cinema_fk_cinema_halls
     halls = Hall.objects.all()
     return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'halls': halls})
 
