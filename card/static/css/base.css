@@ -132,7 +132,7 @@ body {
 }
 .film_poster {
     /* height: 46%; */
-    height: 655px;
+    height:555px;
     width: 23%;
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 8px;
@@ -154,7 +154,7 @@ body {
     transform: scale(1.04);
 }
 .url_film_title {
-    margin: 15%;
+    margin: 17%;
     text-decoration: none;
     color: #000;
     font-size: 20px;
@@ -165,6 +165,7 @@ body {
     height: 429.5px;/*859*/
     width: 290px;/*580*/
     border-radius: 16px;
+    box-shadow: 3px 5px 20px black;
     transition-duration: 0.3s;
     transition-property: all;
     
@@ -204,6 +205,14 @@ body {
 #hall h2 {
     margin: 0;
 }
+#cinema_div {
+    width: 99%;
+    background-color: #606060;
+    border-radius: 8px;
+    border: 0.1px solid rgb(255, 0, 0);
+    margin-top: 1%;
+    box-shadow: 5px 7px 8px black;
+}
 #hall_time_price {
     height: 6%;
     width: 30%;
@@ -215,6 +224,27 @@ body {
     padding-left: 1%;
     padding-right: 1%;
     margin: 0;
+}
+#hall_price {
+    width: 5%;
+    display: inline-block;
+    border: 0.1px solid rgb(255, 0, 0);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5%;
+    margin: 1%;
+    box-shadow: 5px 7px 15px black;
+    transition-duration: 0.3s;
+}
+#hall_price:hover{
+    transform: scale(1.03);
+}
+.hall_detal {
+    display: inline-block;
+}
+.ticket_a {
+    text-decoration: none;
+    color: #fff;
 }
 
 #hall_rows{

@@ -16,34 +16,23 @@
             {% endfor %}
         <h3>Длительность: {{films.duration}}</h3>
         <h3>Описание:<br>{{films.discription}}</h3>
-        <br>
-        {% for cinema_True in cinemas_True %}
+        <br><br>
+        <div>
             {% for cinema in cinemas %}
-                {% if cinema_True == cinema.name %}
-                    <div class='cinemas'>
-                        <h2>{{cinema.name}}</h2>
-                        <p>Адрес: {{cinema.address}}</p>
-                        <p>Номер телефона: {{cinema.phone}}</p>
-                    </div>
-                    <div class='conteiner'>
-                        {% for hall in halls %}
-                            <div id='hall'>
-                                <h2>{{hall.format}}</h2>
-                                <div id='hall_time_price'>
-                                    <a href="{% url 'hall_detal' pk=hall.pk %}" ><h3>{{hall.time}}</h3> {{hall.price}}р</a>
+                <div id='cinema_div'>
+                    <h3>{{cinema.name}}</h3>
+                    {% for hall in halls %}
+                        <p>{{hall.id}}</p>
+                        {% comment %} {% for fk_cinema_hall in hall.fk_cinema_halls.all%}
+                            <a class='ticket_a' href="{% url 'hall_detal' pk=fk_cinema_hall.pk %}">
+                                <div id='hall_price'>
+                                    <p class='hall_detal'>{{fk_cinema_hall.format}}</p>
+                                    <p class='hall_detal'>{{fk_cinema_hall.price}}р</p>
                                 </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                            </a>
+                        {% endfor %} {% endcomment %}
+                    {% endfor %}
+                </div>
             {% endfor %}
-        {% endfor %}
-    </div>
-    {% comment %} {% for cinema in cinemas %}
-        <div class='cinemas'>
-            <a class='url_film_title' href="{% url 'login' %}" ><h2>{{cinema.name}}</h2></a>
-            <p>Адрес: {{cinema.address}}</p>
-            <p>Номер телефона: {{cinema.phone}}</p>
         </div>
-    {% endfor %} {% endcomment %}
 {% endblock %}
