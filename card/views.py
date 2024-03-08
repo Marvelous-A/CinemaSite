@@ -26,6 +26,7 @@ def main_list(request):
     films = Film.objects\
         .all()\
         .prefetch_related('category', 'director')
+    
     halls = Hall.objects.all()
     
     search_query = request.GET.get('search_query', request.session.get('search_query', ''))

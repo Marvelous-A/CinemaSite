@@ -20,3 +20,15 @@ document.getElementById("search_filter").onclick = function(){
 document.getElementById('search-input').addEventListener('input', function() {
     document.getElementById("search_bar").submit();
 });
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var SearchInput = document.getElementById('search-input');
+    var tempValue = SearchInput.value;
+    SearchInput.value = '';
+    document.getElementById('search-input').focus(); // Установить фокус на поле ввода поиска
+    SearchInput.value = tempValue;
+});
+
+
+
