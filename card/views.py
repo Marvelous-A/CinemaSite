@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Payment, User, Profile
+from .models import Film, Cinema, Hall, Payment, User, Profile, Halls_Films
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -28,6 +28,7 @@ def main_list(request):
         .prefetch_related('category', 'director')
     
     halls = Hall.objects.all()
+    cinemas = Cinema.objects.all()
     
     search_query = request.GET.get('search_query', request.session.get('search_query', ''))
 
@@ -47,16 +48,17 @@ def main_list(request):
     
     
 
-    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'search_query': search_query})
+    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query})
 
 
 @login_required(login_url='login')
 def film_detal(request, pk):
     films = get_object_or_404(Film, pk=pk)
-    cinemas_True = films.cinemas_detals.split(';')
+    # cinemas_True = films.cinemas_detals.split(';') 'cinemas_True': cinemas_True
     cinemas = Cinema.objects.all()
+    # cinema_fk_cinema_halls = cinemas.fk_cinema_halls "cinema_fk_cinema_halls": cinema_fk_cinema_halls
     halls = Hall.objects.all()
-    return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'cinemas_True': cinemas_True, 'halls': halls})
+    return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'halls': halls})
 
 
 @login_required(login_url='login')
