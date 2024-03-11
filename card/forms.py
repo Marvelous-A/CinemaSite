@@ -1,5 +1,5 @@
 from django import forms
-from .models import Film, Cinema, Hall, Profile, Payment, User, Category, Director, Halls_Films
+from .models import Film, Cinema, Hall, Profile, Payment, User, Category, Director
 from django.contrib.auth.forms import UserCreationForm
 
 class FilmForm(forms.ModelForm):
@@ -20,16 +20,11 @@ class DirectorForm(forms.ModelForm):
 class CinemaForm(forms.ModelForm):
     class Meta:
         model = Cinema
-        fields = ['id', 'name', 'address', 'phone', 'number_halls']
+        fields = ['id', 'name', 'address', 'phone', 'number_halls', 'fk_cinema_halls']
 class CinemaHall(forms.ModelForm):
     class Meta:
         model = Hall
-        fields = ['id', 'price', 'format', 'rows', 'places', 'fk_halls_cinema']
-
-class Halls_FilmsForm(forms.ModelForm):
-    class Meta:
-        model = Halls_Films
-        fields = ['id', 'hall_id', 'film_id']
+        fields = ['id', 'cinema_name', 'price', 'format', 'rows', 'places']
 
 class UserForm(UserCreationForm):
     class Meta:

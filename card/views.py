@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Payment, User, Profile, Halls_Films
+from .models import Film, Cinema, Hall, Payment, User, Profile
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required

@@ -48,7 +48,6 @@ class Cinema(models.Model):
     address = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     number_halls = models.IntegerField(null=True)
-    # fk_cinema_halls	= models.ForeignKey('Hall', on_delete=models.PROTECT, null=True)
     fk_cinema_halls	= models.ManyToManyField('Hall')
 
     def save(self, *args, **kwargs):
@@ -59,30 +58,17 @@ class Cinema(models.Model):
 
 class Hall(models.Model):
     id = models.IntegerField(primary_key=True)
-    # cinema_name = models.CharField(max_length=60)
-    # time = models.CharField(max_length=10)
+    cinema_name = models.CharField(max_length=50)
     price = models.IntegerField(null=True)
     format = models.CharField(max_length=5)
     rows = models.IntegerField(null=True)
     places = models.IntegerField(null=True)
-    fk_halls_cinema	= models.ForeignKey(Cinema, on_delete=models.PROTECT, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.id} |{self.fk_halls_cinema}| {self.price}р {self.format}'
-
-class Halls_Films(models.Model):
-    id = models.IntegerField(primary_key=True)
-    hall_id = models.ForeignKey(Hall, on_delete=models.CASCADE)
-    film_id = models.ForeignKey(Film, on_delete=models.CASCADE)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        return f'id: {self.id} | id Hall: {self.hall_id} | id Film: {self.film_id}'
+        return f'{self.id} {self.cinema_name} {self.price}р {self.format}'
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
