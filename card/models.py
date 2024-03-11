@@ -63,6 +63,8 @@ class Hall(models.Model):
     format = models.CharField(max_length=5)
     rows = models.IntegerField(null=True)
     places = models.IntegerField(null=True)
+    getting_started = models.TimeField(null=True)
+    end_work = models.TimeField(null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
