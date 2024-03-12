@@ -1,0 +1,16 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <div id='conteiner_cinema'>
+        {% for cinema in cinemas %}
+            <a id='cinema_card' class='ticket_a' href="{% url 'cinema_detal' pk=cinema.pk %}" >
+                <div class='cinema_div' id='cinema_card_div'>
+                    <h3>{{cinema.name}}</h3>
+                    <p>{{cinema.address}}</p>
+                    <p>{{cinema.phone}}</p> 
+                    <p>Залов: {{cinema.number_halls}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

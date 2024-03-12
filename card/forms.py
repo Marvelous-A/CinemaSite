@@ -1,5 +1,5 @@
 from django import forms
-from .models import Film, Cinema, Hall, Profile, Payment, User, Category, Director
+from .models import Film, Cinema, Hall, Profile, Payment, User, Category, Director, Screening
 from django.contrib.auth.forms import UserCreationForm
 
 class FilmForm(forms.ModelForm):
@@ -21,10 +21,15 @@ class CinemaForm(forms.ModelForm):
     class Meta:
         model = Cinema
         fields = ['id', 'name', 'address', 'phone', 'number_halls', 'fk_cinema_halls']
-class CinemaHall(forms.ModelForm):
+class HallForm(forms.ModelForm):
     class Meta:
         model = Hall
-        fields = ['id', 'cinema_name', 'price', 'format', 'rows', 'places']
+        fields = ['id', 'cinema_name', 'price', 'format', 'rows', 'places', 'getting_started', 'end_work']
+
+class ScreeningForm(forms.ModelForm):
+    class Meta:
+        model = Screening
+        fields = ['cinema', 'film', 'hall', 'start_time', 'end_time']
 
 class UserForm(UserCreationForm):
     class Meta:
@@ -54,10 +59,3 @@ class FilterForm(forms.Form):
         required=False,
         label="Режисеры"
     )
-
-# class DirectorFilterForm(forms.Form):
-#     directors = forms.ModelMultipleChoiceField(
-#         queryset=Director.objects.all(),
-#         widget=forms.CheckboxSelectMultiple,
-#         required=False
-#     )

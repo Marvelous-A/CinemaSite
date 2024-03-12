@@ -2,34 +2,50 @@
 
 {% block content %}
     <div id='poster_detal'>
-        <img class='foto' src={{films.img_url}} alt='фото'\>
-        <h3>{{films.title}}</h3>
-        <h3>Год: {{films.year}}г.</h3>
+        <img class='foto' src={{film.img_url}} alt='фото'\>
+        <h3>{{film.title}}</h3>
+        <h3>Год: {{film.year}}г.</h3>
         <h3 style="display:inline">Жанр:</h3>
-            {% for category in films.category.all %}
+            {% for category in film.category.all %}
                 <h3 style="display:inline">{{category}}</h3>
             {% endfor %}
-        <h3>Страна: {{films.country}}</h3>
+        <h3>Страна: {{film.country}}</h3>
         <h3 style="display:inline">Режиссёр:</h3>
-            {% for director in films.director.all %}
+            {% for director in film.director.all %}
                 <h3 style="display:inline">{{director}}</h3>
             {% endfor %}
-        <h3>Длительность: {{films.duration}}</h3>
-        <h3>Описание:<br>{{films.discription}}</h3>
+        <h3>Длительность: {{film.duration}} мин</h3>
+        <h3>Описание:<br>{{film.discription}}</h3>
         <br><br><br>
-        <div>
-            {% for cinema in cinemas %}
-                <div id='cinema_div'>
-                    <h3>{{cinema.name}}</h3>
-                    {% for hall in cinema.fk_cinema_halls.all%}
-                        <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
-                            <div id='hall_price'>
-                                <p class='hall_detal'>{{hall.format}}</p>
-                                <p class='hall_detal'>{{hall.price}}р</p>
-                            </div>
-                        </a>
+        {% for screening in screenings %}
+            {% if film.title == screening.film.title %}
+                <div class='cinema_div'>
+                    <h3>{{screening.cinema.name}}</h3>
+                    {% for hall in screening.cinema.fk_cinema_halls.all%}
+                        {% if hall.id == screening.hall.id %}
+                            <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
+                                <div id='hall_price'>
+                                    <p class='hall_detal'>{{hall.format}}</p>
+                                    <p class='hall_detal'>{{hall.price}}р</p>
+                                    <p class='hall_detal'>{{screening.start_time}}р</p>
+                                </div>
+                            </a>
+                        {% endif %}
                     {% endfor %}
                 </div>
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% endfor %}
+        {% comment %} {% for cinema in cinemas %}
+            <div class='cinema_div'>
+                <h3>{{cinema.name}}</h3>
+                {% for hall in cinema.fk_cinema_halls.all%}
+                    <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
+                        <div id='hall_price'>
+                            <p class='hall_detal'>{{hall.format}}</p>
+                            <p class='hall_detal'>{{hall.price}}р</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %} {% endcomment %}
 {% endblock %}

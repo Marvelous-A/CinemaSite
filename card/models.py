@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import re
+from datetime import timedelta
+from django.core.exceptions import ValidationError  
 
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
@@ -33,7 +35,7 @@ class Film(models.Model):
     year = models.IntegerField(null=True)
     country = models.CharField(max_length=50)
     director = models.ManyToManyField(Director)
-    duration = models.CharField(max_length=20)
+    duration = models.IntegerField(null=True)
     cinemas_detals = models.CharField(max_length=1000)
 
     def save(self, *args, **kwargs):
@@ -71,6 +73,35 @@ class Hall(models.Model):
 
     def __str__(self):
         return f'{self.id} {self.cinema_name} {self.price}р {self.format}'
+
+class Screening(models.Model):
+    cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
+    hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+
+    def clean(self):
+        # Проверка, что фильм не идет одновременно с другими фильмами в этом зале
+        overlapping_screenings = Screening.objects.filter(
+            hall=self.hall,
+            end_time__gt=self.start_time,
+            start_time__lt=self.end_time
+        ).exclude(pk=self.pk)
+        if overlapping_screenings.exists():
+            raise ValidationError('Screening times overlap with another screening in the same hall.')
+
+        if (self.end_time - self.start_time) > timedelta(minutes=self.film.duration + 20):
+            raise ValidationError('Screening duration exceeds hall operating hours or does not allow for a 20-minute break.')
+        
+        
+
+    def save(self, *args, **kwargs):
+        self.full_clean()  # Вызов clean метода перед сохранением
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f'Фильм: {self.film.title}, кинотеатр: {self.hall.cinema_name}, начинается: {self.start_time}'
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

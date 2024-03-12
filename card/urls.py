@@ -14,4 +14,6 @@ urlpatterns = [
     path('pay', views.pay, name='pay'),
     path('update_profile', views.update_profile, name='update_profile'),
     path('profile', views.profile, name='profile'),
+    path('cinema_detal/<int:pk>/', views.cinema_detal, name='cinema_detal'),
+    path('cinemas', views.cinemas, name='cinemas'),
 ]

@@ -30,9 +30,18 @@
                 </div>
                 {% endfor %}
                 <p>{{film.cinemas_detals}}</p> {% endcomment %}
-                {% for cinema in cinemas %}
-                    <a class='ticket_a' href="{% url 'film_detal' pk=film.pk %}" >{{ cinema.name }}</a>
-                {% endfor %}
+                <div id='cinema_poster'>
+                    {% for screening in screenings %}
+                        {% if screening.film.title == film.title%}
+                            <a id='cinema_card' class='ticket_a' href="{% url 'cinema_detal' pk=screening.cinema.pk %}" >
+                                <h3>{{screening.cinema.name}}</h3>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                {% comment %} {% for cinema in cinemas %}
+                    <a class='ticket_a' href="{% url 'cinema_detal' pk=cinema.pk %}" >{{ cinema.name }}</a>
+                {% endfor %} {% endcomment %}
             </div>
         {% endfor %}
     </div>

@@ -191,6 +191,19 @@ body {
     position: relative;
     left: 2%;
 }
+#cinema_poster {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap; /*чтобы переносить элементы на другую строчку*/
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+#cinema_poster h3{
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
 .cinemas {
     margin-left: 3%;
 }
@@ -205,7 +218,7 @@ body {
 #hall h2 {
     margin: 0;
 }
-#cinema_div {
+.cinema_div {
     width: 99%;
     background-color: #606060;
     border-radius: 8px;
@@ -226,7 +239,7 @@ body {
     margin: 0;
 }
 #hall_price {
-    width: 5%;
+    width: 13%;
     display: inline-block;
     border: 0.1px solid rgb(255, 0, 0);
     border-radius: 8px;
@@ -371,8 +384,80 @@ body {
 #button_update_profile:hover {
     color: black;
 }
+
+#conteiner_cinema {
+    display: flex;
+    flex-wrap: wrap; /*чтобы переносить элементы на другую строчку*/
+}
+#cinema_card {
+    width: 45%;
+    margin-left: 2%;
+    margin-top: 1.5%;
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+#cinema_card:hover {
+    transform: scale(1.01);
+}
+#cinema_card_div {
+    padding: 1.5%;
+}
+
+#cinema_header {
+    width: 70%;
+    background-color: #606060;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 8px;
+    margin-top: 1.2%;
+    margin-bottom: 2%;
+    text-align: center;
+}
+#cinema_screening_div {
+    width: 95%;
+    margin-top: 0.5%;
+    margin-left: 1%;
+    padding: 1%;
+    padding-bottom: 2%;
+}
+#foto_screening {
+    padding: 5px;
+    height: 214.75px; /*429.5px*//*859*/
+    width: 145px; /*290px*//*580*/
+    border-radius: 16px;
+    box-shadow: 3px 5px 20px black;
+    float: left;
+}
+#cinema_screening_div p {
+    width: 80%;
+    margin-left: 3%;
+    position: relative;
+    left: 2%;
+}
+#hall_price_screening {
+    height: 38%;
+    width: 16%;
+    display: inline-block;
+    border: 0.1px solid rgb(255, 0, 0);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.5%;
+    margin-left: 2%;
+    box-shadow: 5px 7px 15px black;
+    transition-duration: 0.3s;
+}
+#hall_price_screening p {
+    margin: 0%;
+}
+#hall_price_screening:hover{
+    transform: scale(1.03);
+}
+
 #footer {
+    width: 100%;
     border-top: 1px solid rgb(255, 0, 0);
     background-color: #242424;
-    margin-top: 8%;
+    padding: 0.5%;
+    margin-top: auto;
 }

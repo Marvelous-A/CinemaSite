@@ -1,0 +1,29 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <div id='cinema_header'>
+        <h3>{{cinema.name}}</h3>
+        <p>{{cinema.address}}</p>
+        <p>{{cinema.phone}}</p>
+        <p>Залов: {{cinema.number_halls}}</p>
+    </div>
+        {% for cinema_screening in screening %}
+            {% if cinema_screening.cinema.id == cinema.id %}
+                <div class='cinema_div' id='cinema_screening_div'>
+                    <img id='foto_screening' src={{cinema_screening.film.img_url}} alt='фото'\>
+                    <p>{{cinema_screening.film.title}}</p>
+                    {% for category in cinema_screening.film.category.all %}
+                        <p class='filter' style="display:inline">{{category}}</p>
+                    {% endfor %}
+                    <p>{{cinema_screening.film.duration}} мин</p>
+                    <a class='ticket_a' href="{% url 'hall_detal' pk=cinema_screening.hall.pk %}">
+                        <div id='hall_price_screening'>
+                            <p class='hall_detal'>{{cinema_screening.hall.format}}</p>
+                            <p class='hall_detal'>{{cinema_screening.hall.price}}р</p>
+                            <p class='hall_detal'>{{cinema_screening.start_time}}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        {% endfor %}
+{% endblock %}

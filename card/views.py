@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Payment, User, Profile
+from .models import Film, Cinema, Hall, Screening
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
@@ -45,19 +45,28 @@ def main_list(request):
             films = films.filter(category__in=categories)
         elif directors:
             films = films.filter(director__in=directors)
-    
-    
-
-    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query})
+    screenings = Screening.objects.all()
+    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query, 'screenings': screenings})
 
 
 @login_required(login_url='login')
 def film_detal(request, pk):
-    films = get_object_or_404(Film, pk=pk)
+    film = get_object_or_404(Film, pk=pk)
     cinemas = Cinema.objects.all()
-    halls = Hall.objects.all()
-    return render(request, 'card/film_detal.html', {'films': films, 'cinemas': cinemas, 'halls': halls})
+    screenings = Screening.objects.all()
+    return render(request, 'card/film_detal.html', {'film': film, 'cinemas': cinemas, 'screenings': screenings})
 
+@login_required(login_url='login')
+def cinemas(request):
+    cinemas = Cinema.objects.all()
+    screening = Screening.objects.all()
+    return render(request, 'card/cinemas.html', {'cinemas': cinemas, 'screening': screening})
+
+@login_required(login_url='login')
+def cinema_detal(request, pk):
+    cinema = get_object_or_404(Cinema, pk=pk)
+    screening = Screening.objects.all()
+    return render(request, 'card/cinema_detal.html', {'screening': screening, 'cinema': cinema})
 
 @login_required(login_url='login')
 def add_move(request):
