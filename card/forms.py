@@ -24,7 +24,7 @@ class CinemaForm(forms.ModelForm):
 class HallForm(forms.ModelForm):
     class Meta:
         model = Hall
-        fields = ['id', 'cinema_name', 'price', 'format', 'rows', 'places', 'getting_started', 'end_work']
+        fields = ['id', 'number', 'cinema_name', 'price', 'format', 'rows', 'places', 'getting_started', 'end_work']
 
 class ScreeningForm(forms.ModelForm):
     class Meta:

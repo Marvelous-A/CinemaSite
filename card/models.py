@@ -60,6 +60,7 @@ class Cinema(models.Model):
 
 class Hall(models.Model):
     id = models.IntegerField(primary_key=True)
+    number = models.IntegerField(null=True)
     cinema_name = models.CharField(max_length=50)
     price = models.IntegerField(null=True)
     format = models.CharField(max_length=5)
