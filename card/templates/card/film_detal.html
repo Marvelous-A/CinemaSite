@@ -26,8 +26,9 @@
                             <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
                                 <div id='hall_price'>
                                     <p class='hall_detal'>{{hall.format}}</p>
-                                    <p class='hall_detal'>{{hall.price}}р</p>
-                                    <p class='hall_detal'>{{screening.start_time}}р</p>
+                                    <p class='hall_detal'>{{hall.price}}р</p><br>
+                                    <p class='hall_detal'>Зал {{hall.number}}</p>
+                                    <p class='hall_detal'>{{screening.start_time}}</p>
                                 </div>
                             </a>
                         {% endif %}

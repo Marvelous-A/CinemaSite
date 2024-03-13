@@ -294,6 +294,12 @@ body {
 #hall_main h3 {
     margin: 0;
 }
+#hall_num {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 3%;
+}
 #screen {
     height: 1.5%;
     width: 65%;

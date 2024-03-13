@@ -92,11 +92,11 @@ def logout_view(request):
 
 @login_required(login_url='login')
 def hall_detal(request, pk):
-    halls = get_object_or_404(Hall, pk=pk)
+    hall = get_object_or_404(Hall, pk=pk)
     places = []
-    for i in range(halls.rows):
+    for i in range(hall.rows):
         row = []
-        for j in range(halls.places):
+        for j in range(hall.places):
             row.append(f'{i}, {j}')
         places.append(row)
     if request.method == "POST":
@@ -108,7 +108,7 @@ def hall_detal(request, pk):
         else:
             print(form_payment.errors.as_data())
         return redirect('pay')
-    return render(request, 'card/hall_detal.html', {'halls': halls, 'places': places})
+    return render(request, 'card/hall_detal.html', {'hall': hall, 'places': places})
 
 
 def pay(request):

@@ -1,8 +1,9 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-    {% comment %} <p id='qwe'>{{halls.rows}}</p>
-    <p>{{halls.places}}</p> {% endcomment %}
+    {% comment %} <p id='qwe'>{{hall.rows}}</p>
+    <p>{{hall.places}}</p> {% endcomment %}
+    <h3 id='hall_num'>Зал {{hall.number}}</h3>
     <div id='hall_rows'>
         {% for list in places%}
             <div>
@@ -19,7 +20,7 @@
     <div id='screen'>.</div>
     <div id='payment_conteiner'>
         <p style="display:inline">Цена за билет:</p>
-        <p style="display:inline" id="price_per_ticket">{{halls.price}}</p>
+        <p style="display:inline" id="price_per_ticket">{{hall.price}}</p>
         <p id="price_tickets">Цена: 0 руб</p>
         <form method="post">
             {% csrf_token %}
