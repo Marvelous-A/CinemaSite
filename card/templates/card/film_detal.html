@@ -36,17 +36,4 @@
                 </div>
             {% endif %}
         {% endfor %}
-        {% comment %} {% for cinema in cinemas %}
-            <div class='cinema_div'>
-                <h3>{{cinema.name}}</h3>
-                {% for hall in cinema.fk_cinema_halls.all%}
-                    <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
-                        <div id='hall_price'>
-                            <p class='hall_detal'>{{hall.format}}</p>
-                            <p class='hall_detal'>{{hall.price}}р</p>
-                        </div>
-                    </a>
-                {% endfor %}
-            </div>
-        {% endfor %} {% endcomment %}
 {% endblock %}

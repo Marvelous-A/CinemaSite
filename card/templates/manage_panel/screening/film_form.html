@@ -7,31 +7,31 @@
             {% csrf_token %}
             <div class='parameters_move'>
                 <h4>Название</h4>
-                <input class='input' value="" type="text" name="{{ form.title.name }}">
+                <input class='input' value="{{ form.title }}" type="text" name="{{ form.title.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Фото(URL)</h4>
-                <input class='input' value="" type="text" name="{{ form.img_url.name }}">
+                <input class='input' value="{{ form.img_url }}" type="text" name="{{ form.img_url.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Описание</h4>
-                <input class='input' value="" type="text" name="{{ form.discription.name }}">
+                <input class='input' value="{{ form.discription }}" type="text" name="{{ form.discription.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Год выпуска</h4>
-                <input class='input' value="" type="text" name="{{ form.year.name }}">
+                <input class='input' value="{{form.year}}" type="text" name="{{ form.year.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Страна</h4>
-                <input class='input' value="" type="text" name="{{ form.country.name }}">
+                <input class='input' value="{{form.country}}" type="text" name="{{ form.country.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Режиссёр</h4>
-                <input class='input' value="" type="text" name="{{ form.director.name }}">
+                <input class='input' value="{{form.director}}" type="text" name="{{ form.director.name }}">
             </div>
             <div class='parameters_move'>
                 <h4>Продолжительнсть</h4>
-                <input class='input' value="" type="text" name="{{ form.duration.name }}">
+                <input class='input' value="{{form.duration}}" type="text" name="{{ form.duration.name }}">
             </div>
         </from>
     </div>

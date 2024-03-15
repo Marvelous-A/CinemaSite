@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall, Screening
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
-
+import time
 
 def login_view(request):
     if request.method == 'POST':
@@ -68,7 +68,10 @@ def cinema_detal(request, pk):
     screening = Screening.objects.all()
     return render(request, 'card/cinema_detal.html', {'screening': screening, 'cinema': cinema})
 
+#####
+
 @login_required(login_url='login')
+@permission_required('card.is_employee', raise_exception=True)
 def add_move(request):
     if request.method == 'POST':
         request.POST = request.POST.copy()
@@ -81,7 +84,41 @@ def add_move(request):
     else:
         Film.objects.all()
         form = FilmForm()
-    return render(request, 'card/add_move.html', {})
+    return render(request, 'manage_panel/films/film_form.html', {'film': form})
+
+@login_required
+@permission_required('card.is_employee', raise_exception=True)
+def film_list(request):
+    films = Film.objects.all()
+    return render(request, 'manage_panel/films/list.html', {'films': films})
+
+@login_required
+@permission_required('card.is_employee', raise_exception=True)
+def film_delete(request, pk):
+    film = get_object_or_404(Film, pk)
+
+    if request.method == 'POST':
+        film.delete()
+        time.sleep(5)
+        return redirect('film_list')
+    
+    return render(request, 'manage_panel/films/delete.html', {'film':film})
+
+@login_required
+@permission_required('card.is_employee', raise_exception=True)
+def film_update(request, pk):
+    film = get_object_or_404(Film, pk)
+    if request.method == 'POST':
+        form = FilmForm(request.POST, instance=film)
+        if form.is_valid():
+            form.save()
+            return redirect(film_list)
+    else:
+        form = FilmForm(instance=film)
+
+    return render(request, 'manage_panel/films/film_form.html', 'film': form)
+
+#####
 
 
 @login_required(login_url='login')
