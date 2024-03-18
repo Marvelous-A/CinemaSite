@@ -109,6 +109,11 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=12)
     birth_date = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
+    
+    class Meta:
+        permissions = [
+            ("employer", "Сотрудник"),
+        ]
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

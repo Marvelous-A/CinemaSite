@@ -91,10 +91,16 @@ def cinema_detal(request, pk):
         screenings_by_cinema[screening.cinema][screening.hall].append(screening)
     return render(request, 'card/cinema_detal.html', {'screening': screening, 'cinema': cinema, 'screenings_by_cinema': screenings_by_cinema})
 
-#####
+##### Manage page
+@login_required(login_url='login')
+@permission_required('card.employer', raise_exception=True)
+def manage(request):
+    return render(request, 'manage/main_page.html', {})
+
+##### Manage films
 
 @login_required(login_url='login')
-@permission_required('card.is_employee', raise_exception=True)
+@permission_required('card.employer', raise_exception=True)
 def add_move(request):
     if request.method == 'POST':
         request.POST = request.POST.copy()
@@ -107,39 +113,40 @@ def add_move(request):
     else:
         Film.objects.all()
         form = FilmForm()
-    return render(request, 'manage_panel/films/film_form.html', {'film': form})
+    return render(request, 'manage/films/film_form.html', {'film': form})
 
 @login_required
-@permission_required('card.is_employee', raise_exception=True)
+@permission_required('card.employer', raise_exception=True)
 def film_list(request):
     films = Film.objects.all()
-    return render(request, 'manage_panel/films/list.html', {'films': films})
+    return render(request, 'manage/films/list.html', {'films': films})
 
 @login_required
-@permission_required('card.is_employee', raise_exception=True)
+@permission_required('card.employer', raise_exception=True)
 def film_delete(request, pk):
     film = get_object_or_404(Film, pk)
-
     if request.method == 'POST':
         film.delete()
         time.sleep(5)
         return redirect('film_list')
     
-    return render(request, 'manage_panel/films/delete.html', {'film':film})
+    return render(request, 'manage/films/delete.html', {'film':film})
 
 @login_required
-@permission_required('card.is_employee', raise_exception=True)
+@permission_required('card.employer', raise_exception=True)
 def film_update(request, pk):
     film = get_object_or_404(Film, pk)
+    print(film)
     if request.method == 'POST':
         form = FilmForm(request.POST, instance=film)
         if form.is_valid():
             form.save()
-            return redirect(film_list)
+            print(form)
+            return redirect('film_list')
     else:
         form = FilmForm(instance=film)
 
-    return render(request, 'manage_panel/films/film_form.html', 'film': form)
+    return render(request, 'manage/films/film_form.html', {'film': form})
 
 #####
 

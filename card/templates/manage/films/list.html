@@ -1,0 +1,13 @@
+{% extends "manage/bar.html" %}
+
+{% comment %} TODO - вывести список {% endcomment %}
+
+{%block content%}
+<div><a>Добавить фильм</a></div>
+<ul>
+    {%for film in films%}
+    <li> {{ film.title }} <a href="{% url 'film_update' pk=film.pk%}">Изменить</a><a href="{% url 'film_delete' pk=film.pk%}">Удалить</a></li>
+    {%endfor%}
+</ul>
+
+{%endblock%}
