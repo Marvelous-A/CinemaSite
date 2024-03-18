@@ -1,0 +1,39 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <div><p>Добавить фильм</p></div>
+    <div class='inputs_parameters_move'>
+        <form method="post">
+            {% csrf_token %}
+            <div class='parameters_move'>
+                <h4>Название</h4>
+                <input class='input' value="{{ film.title }}" type="text" name="{{ film.title.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Фото(URL)</h4>
+                <input class='input' value="{{ film.img_url }}" type="text" name="{{ film.img_url.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Описание</h4>
+                <input class='input' value="{{ film.discription }}" type="text" name="{{ film.discription.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Год выпуска</h4>
+                <input class='input' value="{{film.year}}" type="text" name="{{ film.year.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Страна</h4>
+                <input class='input' value="{{film.country}}" type="text" name="{{ film.country.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Режиссёр</h4>
+                <input class='input' value="{{film.director}}" type="text" name="{{ film.director.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Продолжительнсть</h4>
+                <input class='input' value="{{film.duration}}" type="text" name="{{ film.duration.name }}">
+            </div>
+        </form>
+    </div>
+    <button class='button_done' type='submit'>Готово</button>
+{% endblock %}  
