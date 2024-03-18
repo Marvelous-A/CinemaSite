@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 class FilmForm(forms.ModelForm):
     class Meta:
         model = Film
-        fields = ['title', 'img_url','discription', 'year', 'country', 'director', 'duration', 'cinemas_detals']
+        fields = ['title', 'img_url','discription', 'year', 'country', 'director', 'duration']
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -30,6 +30,17 @@ class ScreeningForm(forms.ModelForm):
     class Meta:
         model = Screening
         fields = ['cinema', 'film', 'hall', 'start_time', 'end_time']
+        widgets = {
+            'start_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_time': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
+        labels = {
+            'cinema': 'Кинотеатр',
+            'hall': 'Зал',
+            'film': 'Фильм',
+            'start_time': 'Время начала',
+            'end_time': 'Время окончания',
+        }
 
 class UserForm(UserCreationForm):
     class Meta:

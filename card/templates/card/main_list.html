@@ -15,7 +15,6 @@
             {{ filter_form.as_p }}
         <form>
     </fieldset>
-        
     <div class='conteiner'>
         {% for film in films %}
             <div class='film_poster'>
@@ -24,24 +23,17 @@
                 </a>
                 <a class='url_film_title' href="{% url 'film_detal' pk=film.pk %}" >{{ film.title }}</a>
                 <p>{%for category in film.category.all%} {{category.category_name}} {%endfor%}</p>
-                {% comment %} {% for hall in halls %}
-                <div id='hall_main'>
-                    <a href="{% url 'hall_detal' pk=hall.pk %}"><h3>{{hall.format}}</h3><h3>{{hall.time}}</h3><h3>{{hall.price}}р</h3></a>
-                </div>
-                {% endfor %}
-                <p>{{film.cinemas_detals}}</p> {% endcomment %}
                 <div id='cinema_poster'>
-                    {% for screening in screenings %}
-                        {% if screening.film.title == film.title%}
-                            <a id='cinema_card' class='ticket_a' href="{% url 'cinema_detal' pk=screening.cinema.pk %}" >
-                                <h3>{{screening.cinema.name}}</h3>
-                            </a>
+                    {% for cinema_film, cinemas in cinemas_film.items %}
+                        {% if cinema_film.title == film.title %}
+                            {% for cinema in cinemas %}
+                                <a id='cinema_card' class='ticket_a' href="{% url 'cinema_detal' pk=cinema.pk %}" >
+                                    <h3>{{cinema.name}}</h3>
+                                </a>
+                            {% endfor %}
                         {% endif %}
                     {% endfor %}
                 </div>
-                {% comment %} {% for cinema in cinemas %}
-                    <a class='ticket_a' href="{% url 'cinema_detal' pk=cinema.pk %}" >{{ cinema.name }}</a>
-                {% endfor %} {% endcomment %}
             </div>
         {% endfor %}
     </div>

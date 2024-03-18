@@ -17,7 +17,27 @@
         <h3>Длительность: {{film.duration}} мин</h3>
         <h3>Описание:<br>{{film.discription}}</h3>
         <br><br><br>
-        {% for screening in screenings %}
+        {% for cinema, halls in screenings_by_cinema.items %}
+            <div class='cinema_div'>
+                <a id='cinema_card' class='ticket_a' href="{% url 'cinema_detal' pk=cinema.pk %}" >
+                    <h3>{{ cinema.name }}</h3>
+                </a>
+                {% for hall, screenings_in_hall in halls.items %}
+                        {% for screening in screenings_in_hall %}
+                            <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
+                                <div id='hall_price'>
+                                        <p>Зал {{ hall.number }}</p>
+                                        <p class='hall_detal'>{{ hall.format }}</p>
+                                        <p class='hall_detal'>{{ hall.price }}р</p>
+                                        <p class='hall_detal'>{{ screening.start_time|date:"H:i" }}</p>
+                                </div>
+                            </a>
+                        {% endfor %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% comment %} {% for screening in screenings %}
             {% if film.title == screening.film.title %}
                 <div class='cinema_div'>
                     <h3>{{screening.cinema.name}}</h3>
@@ -35,7 +55,8 @@
                     {% endfor %}
                 </div>
             {% endif %}
-        {% endfor %}
+        {% endfor %} {% endcomment %}
+
         {% comment %} {% for cinema in cinemas %}
             <div class='cinema_div'>
                 <h3>{{cinema.name}}</h3>

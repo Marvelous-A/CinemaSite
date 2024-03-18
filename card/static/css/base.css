@@ -219,12 +219,14 @@ body {
     margin: 0;
 }
 .cinema_div {
-    width: 99%;
+    width: 96%;
     background-color: #606060;
     border-radius: 8px;
     border: 0.1px solid rgb(255, 0, 0);
     margin-top: 1%;
+    margin-left: 0.5%;
     box-shadow: 5px 7px 8px black;
+    padding: 1%;
 }
 #hall_time_price {
     height: 6%;
@@ -239,7 +241,7 @@ body {
     margin: 0;
 }
 #hall_price {
-    width: 13%;
+    width: 8%;
     display: inline-block;
     border: 0.1px solid rgb(255, 0, 0);
     border-radius: 8px;
@@ -435,6 +437,15 @@ body {
     box-shadow: 3px 5px 20px black;
     float: left;
 }
+#foto_screening_cinema_detale {
+    padding: 5px;
+    height: 107.375px; /*429.5px*//*859*/
+    width: 72.5px; /*290px*//*580*/
+    border-radius: 16px;
+    box-shadow: 3px 5px 20px black;
+    float: left;
+    margin-right: 5%
+}
 #cinema_screening_div p {
     width: 80%;
     margin-left: 3%;
@@ -442,28 +453,28 @@ body {
     left: 2%;
 }
 #hall_price_screening {
-    height: 38%;
+    height: 86%;
     width: 16%;
     display: inline-block;
     border: 0.1px solid rgb(255, 0, 0);
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 0.2);
     padding: 0.5%;
-    margin-left: 2%;
+    margin-left: 0.5%;
     box-shadow: 5px 7px 15px black;
     transition-duration: 0.3s;
 }
 #hall_price_screening p {
-    margin: 0%;
+    margin-left: 1%;
 }
 #hall_price_screening:hover{
     transform: scale(1.03);
 }
 
 #footer {
-    width: 100%;
-    border-top: 1px solid rgb(255, 0, 0);
+    width: 99.5%;
     background-color: #242424;
-    padding: 0.5%;
+    padding-left: 0.5%;
+    border-top: 1px solid rgb(255, 0, 0);
     margin-top: auto;
 }

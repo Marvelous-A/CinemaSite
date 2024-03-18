@@ -7,24 +7,22 @@
         <p>{{cinema.phone}}</p>
         <p>Залов: {{cinema.number_halls}}</p>
     </div>
-        {% for cinema_screening in screening %}
-            {% if cinema_screening.cinema.id == cinema.id %}
-                <div class='cinema_div' id='cinema_screening_div'>
-                    <img id='foto_screening' src={{cinema_screening.film.img_url}} alt='фото'\>
-                    <p>{{cinema_screening.film.title}}</p>
-                    {% for category in cinema_screening.film.category.all %}
-                        <p class='filter' style="display:inline">{{category}}</p>
-                    {% endfor %}
-                    <p>{{cinema_screening.film.duration}} мин</p>
-                    <a class='ticket_a' href="{% url 'hall_detal' pk=cinema_screening.hall.pk %}">
+    {% for cinema, halls in screenings_by_cinema.items %}
+        {% for hall, screenings_in_hall in halls.items %}
+            <div class='cinema_div'>
+                {% for screening in screenings_in_hall %}
+                    <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
                         <div id='hall_price_screening'>
-                            <p class='hall_detal'>{{cinema_screening.hall.format}}</p>
-                            <p class='hall_detal'>{{cinema_screening.hall.price}}р</p>
-                            <p class='hall_detal'>{{cinema_screening.start_time}}</p>
-                            <p class='hall_detal'>{{cinema_screening.hall.number}} Зал</p>
+                            <img id='foto_screening_cinema_detale' src={{screening.film.img_url}} alt='фото'\>
+                            <p class='hall_detal'>{{hall.number}} Зал</p>
+                            <br>
+                            <p class='hall_detal'>{{ hall.format }}</p>
+                            <p class='hall_detal'>{{ hall.price }}р</p>
+                            <p class='hall_detal'>{{ screening.start_time|date:"H:i" }}</p>
                         </div>
                     </a>
-                </div>
-            {% endif %}
+                {% endfor %}
+            </div>
         {% endfor %}
+    {% endfor %}
 {% endblock %}

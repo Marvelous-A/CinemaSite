@@ -46,15 +46,30 @@ def main_list(request):
         elif directors:
             films = films.filter(director__in=directors)
     screenings = Screening.objects.all()
-    return render(request, 'card/main_list.html', {'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query, 'screenings': screenings})
+    cinemas_film = {}
+    for screening in screenings:
+        if screening.film not in cinemas_film:
+            cinemas_film[screening.film] = {}
+        if screening.cinema not in cinemas_film[screening.film]:
+            cinemas_film[screening.film][screening.cinema] = []
+        cinemas_film[screening.film][screening.cinema].append(screening)
+    return render(request, 'card/main_list.html', {'cinemas_film': cinemas_film, 'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query, 'screenings': screenings})
 
 
 @login_required(login_url='login')
 def film_detal(request, pk):
     film = get_object_or_404(Film, pk=pk)
     cinemas = Cinema.objects.all()
-    screenings = Screening.objects.all()
-    return render(request, 'card/film_detal.html', {'film': film, 'cinemas': cinemas, 'screenings': screenings})
+    screenings = Screening.objects.filter(film=film).select_related('cinema', 'hall')
+    # Сгруппируем сеансы по кинотеатру и залу
+    screenings_by_cinema = {}
+    for screening in screenings:
+        if screening.cinema not in screenings_by_cinema:
+            screenings_by_cinema[screening.cinema] = {}
+        if screening.hall not in screenings_by_cinema[screening.cinema]:
+            screenings_by_cinema[screening.cinema][screening.hall] = []
+        screenings_by_cinema[screening.cinema][screening.hall].append(screening)
+    return render(request, 'card/film_detal.html', {'film': film, 'screenings_by_cinema': screenings_by_cinema})
 
 @login_required(login_url='login')
 def cinemas(request):
@@ -65,8 +80,16 @@ def cinemas(request):
 @login_required(login_url='login')
 def cinema_detal(request, pk):
     cinema = get_object_or_404(Cinema, pk=pk)
-    screening = Screening.objects.all()
-    return render(request, 'card/cinema_detal.html', {'screening': screening, 'cinema': cinema})
+    screenings = Screening.objects.filter(cinema=cinema).select_related('cinema', 'hall')
+    # Сгруппируем сеансы по кинотеатру и залу
+    screenings_by_cinema = {}
+    for screening in screenings:
+        if screening.cinema not in screenings_by_cinema:
+            screenings_by_cinema[screening.cinema] = {}
+        if screening.hall not in screenings_by_cinema[screening.cinema]:
+            screenings_by_cinema[screening.cinema][screening.hall] = []
+        screenings_by_cinema[screening.cinema][screening.hall].append(screening)
+    return render(request, 'card/cinema_detal.html', {'screening': screening, 'cinema': cinema, 'screenings_by_cinema': screenings_by_cinema})
 
 @login_required(login_url='login')
 def add_move(request):

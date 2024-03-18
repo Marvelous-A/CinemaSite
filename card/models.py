@@ -36,7 +36,7 @@ class Film(models.Model):
     country = models.CharField(max_length=50)
     director = models.ManyToManyField(Director)
     duration = models.IntegerField(null=True)
-    cinemas_detals = models.CharField(max_length=1000)
+    # cinemas_detals = models.CharField(max_length=1000)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
