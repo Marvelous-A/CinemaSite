@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.11"
 django = "^4.2.7"
 django-debug-toolbar = "^4.3.0"
+django-mptt = "^0.16.0"
 
 
 [build-system]

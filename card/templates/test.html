@@ -1,0 +1,59 @@
+<!-- menu.html -->
+
+<ul class="menu">
+    {% for item in menu_items %}
+        <li>
+            <a href="{{ item.url }}">{{ item.name }}</a>
+            {% if item.children.all %}
+                <ul>
+                    {% for child in item.children.all %}
+                        <li>
+                            <a href="{{ child.url }}">{{ child.name }}</a>
+                            <!-- Рекурсивно отобразить дочерние элементы, если они есть -->
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+{% comment %} 
+
+/* styles.css */
+
+.menu li {
+    list-style-type: none;
+}
+
+.menu li > ul {
+    display: none; /* Скрыть дочерние меню по умолчанию */
+}
+
+.menu li:hover > ul {
+    display: block; /* Показывать дочерние меню при наведении */
+}
+
+
+{% endcomment %}
+
+{% comment %} 
+
+// scripts.js
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const menuItems = document.querySelectorAll('.menu li');
+
+    for (let menuItem of menuItems) {
+        menuItem.addEventListener('click', function (e) {
+            const childMenu = this.querySelector('ul');
+            if (childMenu) {
+                childMenu.style.display = childMenu.style.display === 'block' ? 'none' : 'block';
+                e.stopPropagation();
+            }
+        });
+    }
+});
+
+
+{% endcomment %}

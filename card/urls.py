@@ -30,4 +30,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('cinema_detal/<int:pk>/', views.cinema_detal, name='cinema_detal'),
     path('cinemas', views.cinemas, name='cinemas'),
+
+    path('test', views.test, name='test')
 ]

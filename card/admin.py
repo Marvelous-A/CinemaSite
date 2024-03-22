@@ -1,5 +1,5 @@
 from django.contrib import admin
-from card.models import Film, Cinema, Hall, Profile, Payment, Category, Director, Screening
+from card.models import *
 #Register your models here.
 
 
@@ -11,3 +11,4 @@ admin.site.register(Screening)
 admin.site.register(Hall)
 admin.site.register(Profile)
 admin.site.register(Payment)
+admin.site.register(MenuItem)

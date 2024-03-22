@@ -292,3 +292,15 @@ def update_profile(request):
 @login_required
 def profile(request):
     return render(request, 'card/profile.html', {})
+
+
+
+
+
+
+
+
+
+def menu_view(request):
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'test.html',{"menu_items":menu_items})

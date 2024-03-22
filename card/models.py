@@ -24,7 +24,7 @@ class Director(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.director_name}'
+        return f'{self.name}'
     
 class Film(models.Model):
     title = models.CharField(max_length=50)
@@ -135,3 +135,28 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'resault price: {self.resault_price}'
+    
+
+
+
+
+
+
+
+
+
+
+from mptt.models import MPTTModel, TreeForeignKey
+ 
+
+class MenuItem(MPTTModel):
+    name = models.CharField(max_length=255)
+    parent = TreeForeignKey('self', 
+                            on_delete=models.CASCADE, 
+                            null=True, 
+                            blank=True, 
+                            related_name='children')
+    url = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
