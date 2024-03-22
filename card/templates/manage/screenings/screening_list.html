@@ -1,0 +1,18 @@
+{% extends "card/base.html" %}
+
+{% comment %} TODO - вывести список {% endcomment %}
+
+{%block content%}
+    <div class='list_div'>
+        <ol>
+            {%for screening in screenings %}
+                <li> 
+                    {{screening.cinema.name}}, {{screening.film.title}}, {{screening.start_time}} — {{screening.end_time|date:"H:i"}} - 
+                    <a href="{% url 'screening_update' pk=screening.pk%}">Изменить</a> 
+                    <a href="{% url 'screening_delete' pk=screening.pk%}">Удалить</a>
+                </li>
+            {%endfor%}
+        </ol>
+        <a href="{% url 'add_screening'%}">Добавить пункт в расписание</a>
+    </div>
+{%endblock%}

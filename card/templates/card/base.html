@@ -15,9 +15,8 @@
             <div id='button_base'>
                 {% if user.is_superuser %}
                     <a class='a_base' id='admin' href="/admin">Admin</a>
-                    <a class='a_base' id='add_move' href="{% url 'add_move' %}" >Добавить фильм</a>
+                    <a class='a_base' id='add_move' href="{% url 'manage_page' %}">Управление</a>
                 {% endif %}
-                <a class='a_base' id='add_move' href="{% url 'manage_page' %}" >Управление</a>{% comment %}  {% endcomment %}
                 <a class='a_base' id='main_list' href="{% url 'main_list' %}" >Главная</a>
                 <a class='a_base' href="{% url 'cinemas' %}" >Кинотеатры</a>
                 <a class='a_base' href="{% url 'profile' %}" >Профиль</a>

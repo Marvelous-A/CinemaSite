@@ -38,7 +38,7 @@ body {
 
 #button_base {
     height: 30%;
-    width: 60%;
+    width: 65%;
     float: right;
     text-align: center;
     margin-left: 58%;
@@ -469,6 +469,78 @@ body {
 }
 #hall_price_screening:hover{
     transform: scale(1.03);
+}
+
+#main_page_div {
+    margin: 2%;
+    padding: 1%;
+    background-color: rgb(96, 96, 96);
+}
+#main_page_div h2 {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}
+#main_page_div li {
+    margin-bottom: 1%;
+}
+#main_page_div a {
+    text-decoration: none;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-top: 0.1%;
+    padding-bottom: 0.1%;
+    color: #fff;
+    background-color: #ff0000;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+#main_page_div a:hover {
+    color: black;
+}
+.list_div {
+    margin: 2%;
+    padding: 1%;
+    background-color: rgb(96, 96, 96);
+}
+.list_div li {
+    margin-bottom: 1%;
+}
+.list_div a {
+    text-decoration: none;
+    padding-left: 0.5%;
+    padding-right: 0.5%;
+    padding-top: 0.1%;
+    padding-bottom: 0.1%;
+    color: #fff;
+    background-color: #ff0000;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 15px;
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+.list_div a:hover {
+    color: black;
+}
+
+.button_sub {
+    margin-top: 3%;
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 16px;
+    text-decoration: none;
+    font-size: 15px;
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+.button_sub:hover {
+    color: black;
 }
 
 #footer {

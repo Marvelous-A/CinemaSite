@@ -1,9 +1,11 @@
 {% extends "manage/bar.html" %}
 
 {% block content %}
-<h2>Административная панель</h2>
-<ul>
-    <li><a href="{% url 'film_list' %}">Управление фильмами</a></li>
-    {% comment %} <li><a href="{% url 'screening' %}">Управление рассписанием</a></li> {% endcomment %}
-</ul>
+    <div id='main_page_div'>
+        <h2>Административная панель</h2>
+        <ul>
+            <li><a href="{% url 'film_list' %}">Управление фильмами</a></li>
+            <li><a href="{% url 'screening_list' %}">Управление рассписанием</a></li>
+        </ul>
+    </div>
 {% endblock %}
