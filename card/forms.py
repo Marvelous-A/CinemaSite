@@ -15,7 +15,7 @@ class CategoryForm(forms.ModelForm):
 class DirectorForm(forms.ModelForm):
     class Meta:
         model = Director
-        fields = ['director_name', 'director_id']
+        fields = ['name']
 
 class CinemaForm(forms.ModelForm):
     class Meta:

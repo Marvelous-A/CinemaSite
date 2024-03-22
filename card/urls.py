@@ -10,7 +10,7 @@ urlpatterns = [
     path('manage/', views.manage, name='manage_page'),
     # Менеджинг фильмов
     path('manage/films', views.film_list, name='film_list' ),
-    path('manage/films/add', views.add_move, name='add_move'),
+    path('manage/films/add', views.add_film, name='add_film'),
     path('manage/films/<int:pk>/edit', views.film_update, name='film_update'),
     path('manage/films/<int:pk>/delete', views.film_delete, name='film_delete'),
 

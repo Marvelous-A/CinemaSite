@@ -1,0 +1,47 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <div><p>Добавить фильм</p></div>
+    <div class='inputs_parameters_move'>
+        <form method="post">
+            {% csrf_token %}
+            <div class='parameters_move'>
+                <h4>Название</h4>
+                <input class='input' value={% if film.title.value != None %}{{film.title.value}}{%else%}""{%endif%} type="text" name="{{ film.title.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Фото(URL)</h4>
+                <input class='input' value={% if film.img_url.value != None %}{{film.img_url.value}}{%else%}""{%endif%} type="text" name="{{ film.img_url.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Описание</h4>
+                <input class='input' value={% if film.discription.value != None %}{{film.discription.value}}{%else%}""{%endif%} type="text" name="{{ film.discription.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Год выпуска</h4>
+                <input class='input' value={% if film.year.value != None %}{{film.year.value}}{%else%}""{%endif%} type="text" name="{{ film.year.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Страна</h4>
+                <input class='input' value={% if film.country.value != None %}{{film.country.value}}{%else%}""{%endif%} type="text" name="{{ film.country.name }}">
+            </div>
+            <div class='parameters_move'>
+                <h4>Режиссёр</h4>
+                <select name="{{ film.director.name }}">
+                    {% for director in directors %}
+                        <option value="{{ director.pk }}" {% if film.director.pk == director.pk%}selected{%endif%}> 
+                            {{director.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class='parameters_move'>
+                <h4>Продолжительнсть</h4>
+                <input class='input' value={% if film.duration.value != None  %}{{film.duration.value}}{%else%}""{%endif%} type="text" name="{{ film.duration.name }}">
+            </div>
+            <button type='submit' class='button_sub'> 
+                <p>Сохранить</p>
+            </button>
+        </form>
+    </div>
+{% endblock %}  

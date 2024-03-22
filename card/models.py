@@ -18,8 +18,7 @@ class Category(models.Model):
         return f'{self.category_name}'
     
 class Director(models.Model):
-    director_name = models.CharField(max_length = 50)
-    director_id = models.CharField(max_length=50)
+    name = models.CharField(max_length = 50)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -109,11 +108,7 @@ class Profile(models.Model):
     phone_number = models.CharField(max_length=12)
     birth_date = models.CharField(max_length=150)
     city = models.CharField(max_length=150)
-    
-    class Meta:
-        permissions = [
-            ("employer", "Сотрудник"),
-        ]
+    is_employer = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

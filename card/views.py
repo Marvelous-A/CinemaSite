@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Film, Cinema, Hall, Screening
+from .models import *
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm, ScreeningForm
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db import transaction
 import time
 
@@ -20,6 +20,8 @@ def login_view(request):
     else:
         return render(request, 'auth/login.html')
 
+def employer_check(user):
+    return user.profile.is_employer
 
 @login_required(login_url='login')
 def main_list(request):
@@ -93,7 +95,7 @@ def cinema_detal(request, pk):
 
 ##### Manage page
 @login_required(login_url='login')
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def manage(request):
     return render(request, 'manage/main_page.html', {})
 
@@ -101,20 +103,10 @@ def manage(request):
 
 # @transaction.atomic
 @login_required(login_url='login')
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def add_film(request):
-    # if request.method == 'POST':
-    #     film_form = FilmForm(request.POST)
-    #     if film_form.is_valid():  # Нужно вводить все параметры включая пороль
-    #         film_form.save()
-    #         print('Фильм создан!')
-    #         return redirect('main_list')
-    #     else:
-    #         print('Данные не корректны.')
-    # else:
-    #     film_form = FilmForm()
-    # return render(request, 'manage/films/add_film.html', {'film_form': film_form})
     films = Film.objects.all()
+    directors = Director.objects.all()
     if request.method == 'POST':
         request.POST = request.POST.copy()
         form = FilmForm(request.POST)
@@ -126,19 +118,19 @@ def add_film(request):
     else:
         Film.objects.all()
         form = FilmForm()
-    return render(request, 'manage/films/add_film.html', {'film': form, 'films': films})
+    return render(request, 'manage/films/film_form.html', {'film': form, 'directors': directors })
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def film_list(request):
     films = Film.objects.all()
     return render(request, 'manage/films/film_list.html', {'films': films})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def film_delete(request, pk):
     print(pk)
-    film = get_object_or_404(Film, pk)
+    film = get_object_or_404(Film, pk=pk)
     print(film)
     if request.method == 'POST':
         film.delete()
@@ -148,10 +140,10 @@ def film_delete(request, pk):
     return render(request, 'manage/films/delete.html', {'film':film})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def film_update(request, pk):
     film = get_object_or_404(Film, pk=pk)
-    print(film)
+    directors = Director.objects.all()
     if request.method == 'POST':
         form = FilmForm(request.POST, instance=film)
         if form.is_valid():
@@ -161,10 +153,10 @@ def film_update(request, pk):
     else:
         form = FilmForm(instance=film)
 
-    return render(request, 'manage/films/film_form.html', {'film': form})
+    return render(request, 'manage/films/film_form.html', {'film': form, 'directors': directors})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def film_delete(request, pk):
     film = get_object_or_404(Film, pk=pk)
     film.delete()
@@ -176,19 +168,19 @@ def film_delete(request, pk):
 #####
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def screening_list(request):
     screenings = Screening.objects.all()
     return render(request, 'manage/screenings/screening_list.html', {'screenings': screenings})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def screening_update(request, pk):
     screening = get_object_or_404(Screening, pk=pk)
     return render(request, 'manage/screenings/screening_form.html', {'screening': screening})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def screening_delete(request, pk):
     screening = get_object_or_404(Screening, pk=pk)
     screening.delete()
@@ -198,7 +190,7 @@ def screening_delete(request, pk):
     return render(request, 'manage/screenings/delete_screening.html', {'screening':screening})
 
 @login_required
-@permission_required('card.employer', raise_exception=True)
+@user_passes_test(employer_check)
 def add_screening(request):
     if request.method == 'POST':
         request.POST = request.POST.copy()
