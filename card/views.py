@@ -124,7 +124,9 @@ def film_list(request):
 @login_required
 @permission_required('card.employer', raise_exception=True)
 def film_delete(request, pk):
+    print(pk)
     film = get_object_or_404(Film, pk)
+    print(film)
     if request.method == 'POST':
         film.delete()
         time.sleep(5)
@@ -135,7 +137,7 @@ def film_delete(request, pk):
 @login_required
 @permission_required('card.employer', raise_exception=True)
 def film_update(request, pk):
-    film = get_object_or_404(Film, pk)
+    film = get_object_or_404(Film, pk=pk)
     print(film)
     if request.method == 'POST':
         form = FilmForm(request.POST, instance=film)

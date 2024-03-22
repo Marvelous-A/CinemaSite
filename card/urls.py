@@ -11,8 +11,8 @@ urlpatterns = [
     # Менеджинг фильмов
     path('manage/films', views.film_list, name='film_list' ),
     path('manage/films/add', views.add_move, name='add_move'),
-    path('manage/films/<int:pk>/edit',views.film_update, name='film_update'),
-    path('manage/films/<int:pk>/delete',views.film_delete, name='film_delete'),
+    path('manage/films/<int:pk>/edit', views.film_update, name='film_update'),
+    path('manage/films/<int:pk>/delete', views.film_delete, name='film_delete'),
 
     # Рассписание
     # path('manage/screening', views.screening_list, namge='screening_list' ),
