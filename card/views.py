@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Film, Cinema, Hall, Screening
-from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm
+from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm, ScreeningForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import transaction
@@ -99,9 +99,22 @@ def manage(request):
 
 ##### Manage films
 
+# @transaction.atomic
 @login_required(login_url='login')
 @permission_required('card.employer', raise_exception=True)
-def add_move(request):
+def add_film(request):
+    # if request.method == 'POST':
+    #     film_form = FilmForm(request.POST)
+    #     if film_form.is_valid():  # Нужно вводить все параметры включая пороль
+    #         film_form.save()
+    #         print('Фильм создан!')
+    #         return redirect('main_list')
+    #     else:
+    #         print('Данные не корректны.')
+    # else:
+    #     film_form = FilmForm()
+    # return render(request, 'manage/films/add_film.html', {'film_form': film_form})
+    films = Film.objects.all()
     if request.method == 'POST':
         request.POST = request.POST.copy()
         form = FilmForm(request.POST)
@@ -109,34 +122,23 @@ def add_move(request):
             form.save()
         else:
             print(form.errors.as_data())
-        return redirect('main_list')
+        return redirect('film_list')
     else:
         Film.objects.all()
         form = FilmForm()
-    return render(request, 'manage/films/film_form.html', {'film': form})
+    return render(request, 'manage/films/add_film.html', {'film': form, 'films': films})
 
 @login_required
 @permission_required('card.employer', raise_exception=True)
 def film_list(request):
     films = Film.objects.all()
-    return render(request, 'manage/films/list.html', {'films': films})
+    return render(request, 'manage/films/film_list.html', {'films': films})
 
-@login_required
-@permission_required('card.employer', raise_exception=True)
-def film_delete(request, pk):
-    film = get_object_or_404(Film, pk)
-    if request.method == 'POST':
-        film.delete()
-        time.sleep(5)
-        return redirect('film_list')
-    
-    return render(request, 'manage/films/delete.html', {'film':film})
 
 @login_required
 @permission_required('card.employer', raise_exception=True)
 def film_update(request, pk):
-    film = get_object_or_404(Film, pk)
-    print(film)
+    film = get_object_or_404(Film, pk=pk)
     if request.method == 'POST':
         form = FilmForm(request.POST, instance=film)
         if form.is_valid():
@@ -148,7 +150,55 @@ def film_update(request, pk):
 
     return render(request, 'manage/films/film_form.html', {'film': form})
 
+@login_required
+@permission_required('card.employer', raise_exception=True)
+def film_delete(request, pk):
+    film = get_object_or_404(Film, pk=pk)
+    film.delete()
+    time.sleep(2)
+    return redirect('film_list')
+    
+    return render(request, 'manage/films/delete_film.html', {'film':film})
+
 #####
+
+@login_required
+@permission_required('card.employer', raise_exception=True)
+def screening_list(request):
+    screenings = Screening.objects.all()
+    return render(request, 'manage/screenings/screening_list.html', {'screenings': screenings})
+
+@login_required
+@permission_required('card.employer', raise_exception=True)
+def screening_update(request, pk):
+    screening = get_object_or_404(Screening, pk=pk)
+    return render(request, 'manage/screenings/screening_form.html', {'screening': screening})
+
+@login_required
+@permission_required('card.employer', raise_exception=True)
+def screening_delete(request, pk):
+    screening = get_object_or_404(Screening, pk=pk)
+    screening.delete()
+    time.sleep(2)
+    return redirect('screening_list')
+    
+    return render(request, 'manage/screenings/delete_screening.html', {'screening':screening})
+
+@login_required
+@permission_required('card.employer', raise_exception=True)
+def add_screening(request):
+    if request.method == 'POST':
+        request.POST = request.POST.copy()
+        form = ScreeningForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            print(form.errors.as_data())
+        return redirect('main_list')
+    else:
+        Screening.objects.all()
+        form = ScreeningForm()
+    return render(request, 'manage/screenings/screening_form.html', {'screening': form})
 
 
 @login_required(login_url='login')

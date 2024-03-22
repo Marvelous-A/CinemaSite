@@ -27,13 +27,20 @@
             </div>
             <div class='parameters_move'>
                 <h4>Режиссёр</h4>
-                <input class='input' value="{{film.director}}" type="text" name="{{ film.director.name }}">
+                {% comment %} <input class='input' value="{{film.director}}" type="text" name="{{ film.director.name }}"> {% endcomment %}
+                <select value="{{film.director}}" name="{{ film.director.name }}">
+                    {% for director in films.director %}
+                        <option value="{{ director }}">{{director.name}}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class='parameters_move'>
                 <h4>Продолжительнсть</h4>
                 <input class='input' value="{{film.duration}}" type="text" name="{{ film.duration.name }}">
             </div>
+            <button type='submit' class='button_sub'> 
+                <p>Сохранить</p>
+            </button>
         </form>
     </div>
-    <button class='button_done' type='submit'>Готово</button>
 {% endblock %}  
