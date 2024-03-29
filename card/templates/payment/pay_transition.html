@@ -1,0 +1,18 @@
+{% extends "card/base.html" %}
+
+{% block content %}
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="5;url=http://127.0.0.1:8000/pay">
+        <title>Промежуточная страница</title>
+        <script>
+            setTimeout(function() {
+                window.location.href = "{% url 'success' %}"
+            }, 5000);
+        </script>
+    </head>
+    <body>
+        <h1>Пожалуйста, подождите...</h1>
+        <p>Вы будете перенаправлены через 5 секунд.</p>
+    </body>
+{% endblock %}

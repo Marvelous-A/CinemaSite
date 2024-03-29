@@ -223,6 +223,11 @@ def hall_detal(request, pk):
             row.append(f'{i}, {j}')
         places.append(row)
     if request.method == "POST":
+        request.GET.get('cinema_pk')
+        print(request.GET.get('cinema_pk'))
+        request.GET.get('hall_pk')
+        print(request.GET.get('hall_pk'))
+        request.GET.get('start_time')
         request.POST.get('brone_places')
         request.POST.get('resault_price')
         form_payment = PaymentForm(request.POST)
@@ -230,13 +235,15 @@ def hall_detal(request, pk):
             form_payment.save()
         else:
             print(form_payment.errors.as_data())
-        return redirect('pay')
+        return redirect('pay_transition')
     return render(request, 'card/hall_detal.html', {'hall': hall, 'places': places})
 
 
-def pay(request):
-    return render(request, 'payment/pay.html', {})
+def pay_transition(request):
+    return render(request, 'payment/pay_transition.html', {})
 
+def success(request):
+    return render(request, 'payment/success.html', {})
 
 @transaction.atomic
 def register(request):
