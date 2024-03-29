@@ -124,6 +124,42 @@ body {
 #search_fieldset {
     margin-top: 1%;
 }
+#bar {
+    height: 70%;
+    width: 20%;
+    position: absolute;
+    position:fixed;
+    z-index: 1000;
+    right: 0;
+    margin-top: 13%;
+    background-color: #242424;
+    border-radius: 10px 0px 0px 10px;
+    opacity: .9;
+}
+#bar a {
+    color:#fff;
+    text-decoration: none;
+}
+#bar_click {
+    height: 5%;
+    width: 2.7%;
+    position:fixed;
+    z-index: 1001;
+    right: 0;
+    margin-top: 13%;
+    background-color: #ff0000;
+    border-radius: 8px 0px 0px 8px;
+    border: none;
+    transition-duration: 0.3s;
+    transition-property: all;
+}
+#bar_click:hover{
+    transform: scale(1.03);
+}
+/* #bar_click_img {
+    height: 80%;
+    width: 90%;
+} */
 .conteiner {
     display: flex;
     flex-wrap: wrap; /*чтобы переносить элементы на другую строчку*/

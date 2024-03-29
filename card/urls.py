@@ -8,6 +8,7 @@ urlpatterns = [
     
     # Панель для содрудников
     path('manage/', views.manage, name='manage_page'),
+    
     # Менеджинг фильмов
     path('manage/films', views.film_list, name='film_list' ),
     path('manage/films/add', views.add_film, name='add_film'),
@@ -31,5 +32,5 @@ urlpatterns = [
     path('cinema_detal/<int:pk>/', views.cinema_detal, name='cinema_detal'),
     path('cinemas', views.cinemas, name='cinemas'),
 
-    path('test', views.test, name='test')
+    path('test', views.menu_view, name='test')
 ]

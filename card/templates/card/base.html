@@ -15,7 +15,7 @@
             <div id='button_base'>
                 {% if user.is_superuser %}
                     <a class='a_base' id='admin' href="/admin">Admin</a>
-                    <a class='a_base' id='add_move' href="{% url 'manage_page' %}">Управление</a>
+                    {% comment %} <a class='a_base' id='add_move' href="{% url 'manage_page' %}">Управление</a> {% endcomment %}
                 {% endif %}
                 <a class='a_base' id='main_list' href="{% url 'main_list' %}" >Главная</a>
                 <a class='a_base' href="{% url 'cinemas' %}" >Кинотеатры</a>
@@ -30,6 +30,31 @@
             </div>
         {% endif %}
     </header>
+
+    <div id='bar_click'>
+        <img id='bar_click_img' width="50" height="50" src="https://img.icons8.com/ios-filled/50/menu--v6.png" alt="menu--v6"/>
+    </div>
+
+    <div id='bar' hidden>
+        <ul class="menu">
+            {% for item in menu_items %}
+                <li>
+                    <a href="{% url item.url %}">{{ item.name }}</a>
+                    {% if item.children.all %}
+                        <ul>
+                            {% for child in item.children.all %}
+                                <li>
+                                    <a href="{% url child.url %}">{{ child.name }}</a>
+                                    <!-- Рекурсивно отобразить дочерние элементы, если они есть -->
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     {% block content %}
     {% endblock %}
     <br><br><br>
@@ -41,4 +66,5 @@
 <script src={%static "js/hall.js"%}></script>
 <script src={%static "js/valid.js"%}></script>
 <script src={%static "js/category.js"%}></script>
+<script src={%static "js/bar.js"%}></script>
 </html>

@@ -3,12 +3,12 @@
 <ul class="menu">
     {% for item in menu_items %}
         <li>
-            <a href="{{ item.url }}">{{ item.name }}</a>
+            <a href="{% url item.url %}">{{ item.name }}</a>
             {% if item.children.all %}
                 <ul>
                     {% for child in item.children.all %}
                         <li>
-                            <a href="{{ child.url }}">{{ child.name }}</a>
+                            <a href="{% url child.url %}">{{ child.name }}</a>
                             <!-- Рекурсивно отобразить дочерние элементы, если они есть -->
                         </li>
                     {% endfor %}

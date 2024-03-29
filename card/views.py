@@ -55,7 +55,8 @@ def main_list(request):
         if screening.cinema not in cinemas_film[screening.film]:
             cinemas_film[screening.film][screening.cinema] = []
         cinemas_film[screening.film][screening.cinema].append(screening)
-    return render(request, 'card/main_list.html', {'cinemas_film': cinemas_film, 'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query, 'screenings': screenings})
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'card/main_list.html', {'cinemas_film': cinemas_film, 'films': films, 'filter_form': Filter, 'halls': halls, 'cinemas': cinemas, 'search_query': search_query, 'screenings': screenings, 'menu_items': menu_items})
 
 
 @login_required(login_url='login')
