@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import *
 from .forms import FilmForm, ProfileForm, PaymentForm, UserForm, FilterForm, ScreeningForm
@@ -223,23 +224,41 @@ def hall_detal(request, pk):
             row.append(f'{i}, {j}')
         places.append(row)
     if request.method == "POST":
-        request.GET.get('cinema_pk')
-        print(request.GET.get('cinema_pk'))
-        request.GET.get('hall_pk')
-        print(request.GET.get('hall_pk'))
-        request.GET.get('start_time')
-        request.POST.get('brone_places')
-        request.POST.get('resault_price')
+        cinema_pk = request.GET.get('cinema_pk')
+        # print(request.GET.get('cinema_pk'))
+        hall_pk = request.GET.get('hall_pk')
+        # print(request.GET.get('hall_pk'))
+        film = request.GET.get('film')
+        # print(request.GET.get('film'))
+        start_time = request.GET.get('start_time')
+        # print(request.GET.get('start_time'))
+        # brone_places = request.POST.get('brone_places')
+        # resault_price = request.POST.get('resault_price')
         form_payment = PaymentForm(request.POST)
         if form_payment.is_valid():
             form_payment.save()
         else:
             print(form_payment.errors.as_data())
-        return redirect('pay_transition')
+        # return redirect('pay_transition')
+        redirect_url = f'/pay_transition/?cinema_pk={cinema_pk}&hall_pk={hall_pk}&film={film}&start_time={start_time}'#&brone_places={brone_places}&resault_price={resault_price}'
+        return HttpResponseRedirect(redirect_url)
     return render(request, 'card/hall_detal.html', {'hall': hall, 'places': places})
 
 
 def pay_transition(request):
+    if request.method == "POST":
+        cinema_pk = request.GET.get('cinema_pk')
+        print(request.GET.get('cinema_pk'))
+        hall_pk = request.GET.get('hall_pk')
+        # print(request.GET.get('hall_pk'))
+        film = request.GET.get('film')
+        # print(request.GET.get('film'))
+        start_time = request.GET.get('start_time')
+        # print(request.GET.get('start_time'))
+        # brone_places = request.POST.get('brone_places')
+        # resault_price = request.POST.get('resault_price')
+    # booking = Booking(user=request.user, cinema=get_object_or_404(pk=cinema_pk), hall=get_object_or_404(pk=hall_pk), position=, film=)
+    # booking.save()
     return render(request, 'payment/pay_transition.html', {})
 
 def success(request):

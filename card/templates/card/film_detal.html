@@ -24,7 +24,7 @@
                 </a>
                 {% for hall, screenings_in_hall in halls.items %}
                     {% for screening in screenings_in_hall %}
-                        <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk  %}?hall_pk={{ hall.pk }}&cinema_pk={{ cinema.pk }}&start_time={{ screening.start_time|date:'Y-m-d H:i' }}">
+                        <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk  %}?hall_pk={{ hall.pk }}&cinema_pk={{ cinema.name }}&start_time={{ screening.start_time|date:'Y-m-d H:i' }}&film={{ film.title }}">
                             <div id='hall_price'>
                                     <p>Зал {{ hall.number }}</p>
                                     <p class='hall_detal'>{{ hall.format }}</p>
