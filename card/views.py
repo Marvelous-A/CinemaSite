@@ -263,6 +263,7 @@ def hall_detal(request, pk_hall, pk_screening):
         for i in brone_places:
             brone_places_ticket += f"ряд {int(i[0])+1}, место {int(i[3])+1}; "
         brone_places_ticket = brone_places_ticket[0:-2:]
+
         form_payment = PaymentForm(request.POST)
         if form_payment.is_valid():
             form_payment.save()
@@ -288,29 +289,35 @@ def pay_transition(request):
         screening_pk = request.GET.get('screening_pk')
         brone_places = request.GET.get('brone_places')
         brone_places_ticket = request.GET.get('brone_places_ticket')
+
+        # print(f"{brone_places=}")
+        # print(f"{brone_places_ticket=}")
+
         resault_price = request.GET.get('resault_price')
 
-        # booking = Booking(user=request.user, cinema=get_object_or_404(Cinema, pk=cinema_pk), hall=get_object_or_404(Hall, pk=hall_pk), film=get_object_or_404(Film, pk=film_pk), screening=get_object_or_404(Screening, pk=screening))
-        # booking.save()
-        # redirect_url = f'/success/?booking={booking}'
-        time.sleep(2)
-        # return HttpResponseRedirect(redirect_url)
-
-        redirect_url = f'/success/?cinema_pk={cinema_pk}&hall_pk={hall_pk}&film_pk={film_pk}&screening_pk={screening_pk}&brone_places={brone_places}&brone_places_ticket={brone_places_ticket}&resault_price={resault_price}'
-        return HttpResponseRedirect(redirect_url)
-    return render(request, 'payment/success.html', {})
+        if True: # Проверка на получение оплаты
+            booking = Booking(
+                user=request.user, 
+                cinema=get_object_or_404(Cinema, pk=cinema_pk), 
+                hall=get_object_or_404(Hall, pk=hall_pk), 
+                film=get_object_or_404(Film, pk=film_pk),
+                screening=get_object_or_404(Screening, pk=screening_pk),
+                position= brone_places, 
+                resault_price = resault_price
+                )
+            
+            booking.save()
+        
+    return render(request, 'payment/pay_transition.html', {'booking': booking })
 
 def success(request):
-    cinema_pk = request.GET.get('cinema_pk')
-    hall_pk = request.GET.get('hall_pk')
-    film_pk = request.GET.get('film_pk')
-    screening_pk = request.GET.get('screening_pk')
-    brone_places = request.GET.get('brone_places')
-    brone_places_ticket = request.GET.get('brone_places_ticket')
-    resault_price = request.GET.get('resault_price')
-
-    booking = Booking(user=request.user, cinema=get_object_or_404(Cinema, pk=cinema_pk), hall=get_object_or_404(Hall, pk=hall_pk), film=get_object_or_404(Film, pk=film_pk), screening=get_object_or_404(Screening, pk=screening_pk), position=brone_places, resault_price = resault_price)
-    booking.save()
+    import json, ast
+    booking_pk = request.GET.get('booking')
+    booking = get_object_or_404(Booking, pk=booking_pk)
+    list_pos = ast.literal_eval(booking.position)
+    print(f'{list_pos=} {type(list_pos)}')
+    brone_places_ticket = " | ".join(list(map(lambda pos: f"Ряд {int(pos.split(',')[0]) + 1}, Место {int(pos.split(',')[1]) + 1}" , list_pos)))
+    print(brone_places_ticket)
     return render(request, 'payment/success.html', {"booking": booking, "brone_places_ticket": brone_places_ticket})
 
 @transaction.atomic

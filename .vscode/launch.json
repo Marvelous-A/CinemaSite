@@ -5,7 +5,8 @@
             "name": "Launch",
             "request": "launch",
             "runtimeArgs": [
-                "--remote-debugging-port=9222"
+                "--remote-debugging-port=9222",
+                "--window-size=1920,1080"
             ],
             "url": "http://127.0.0.1:8000/",
             "presentation": {
@@ -26,7 +27,8 @@
             "name": "Launch Microsoft Edge",
             "request": "launch",
             "runtimeArgs": [
-                "--remote-debugging-port=9222"
+                "--remote-debugging-port=9222",
+                "--window-size=1920,1080"
             ],
             "url": "http://127.0.0.1:8000/", // Provide your project's url to finish configuring
             "presentation": {
@@ -39,7 +41,8 @@
             "request": "launch",
             "runtimeArgs": [
                 "--headless",
-                "--remote-debugging-port=9222"
+                "--remote-debugging-port=9222",
+                "--window-size=1920,1080"
             ],
             "url": "http://127.0.0.1:8000/", // Provide your project's url to finish configuring
             "presentation": {

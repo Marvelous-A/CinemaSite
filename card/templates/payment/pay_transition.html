@@ -7,13 +7,13 @@
         <title>Промежуточная страница</title>
         <script>
             setTimeout(function() {
-                window.location.href = "{% url 'success' %}"
+                window.location.href = "{% url 'success' %}?booking={{ booking.pk }}"
             }, 2000);
         </script>
     </head>
     <body>
         <h1>Пожалуйста, подождите...</h1>
-        <p>{{booking}}</p>
+        {% comment %} <p>{{booking}}</p> {% endcomment %}
         <p>Вы будете перенаправлены через 2 секунды.</p>
     </body>
 {% endblock %}
