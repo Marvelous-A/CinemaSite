@@ -79,7 +79,8 @@ def film_detal(request, pk):
 def cinemas(request):
     cinemas = Cinema.objects.all()
     screening = Screening.objects.all()
-    return render(request, 'card/cinemas.html', {'cinemas': cinemas, 'screening': screening})
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'card/cinemas.html', {'cinemas': cinemas, 'screening': screening, 'menu_items': menu_items})
 
 @login_required(login_url='login')
 def cinema_detal(request, pk):
@@ -126,7 +127,8 @@ def add_film(request):
 @user_passes_test(employer_check)
 def film_list(request):
     films = Film.objects.all()
-    return render(request, 'manage/films/film_list.html', {'films': films})
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'manage/films/film_list.html', {'films': films, 'menu_items': menu_items})
 
 @login_required
 @user_passes_test(employer_check)
@@ -173,7 +175,8 @@ def film_delete(request, pk):
 @user_passes_test(employer_check)
 def screening_list(request):
     screenings = Screening.objects.all()
-    return render(request, 'manage/screenings/screening_list.html', {'screenings': screenings})
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'manage/screenings/screening_list.html', {'screenings': screenings, 'menu_items': menu_items})
 
 @login_required
 @user_passes_test(employer_check)
@@ -207,6 +210,26 @@ def add_screening(request):
         form = ScreeningForm()
     return render(request, 'manage/screenings/screening_form.html', {'screening': form})
 
+#####
+
+@login_required
+@user_passes_test(employer_check)
+def booking_list(request):
+    bookings = Booking.objects.all()
+    menu_items = MenuItem.objects.filter(parent__isnull=True)
+    return render(request, 'manage/bookings/booking_list.html', {'bookings': bookings, 'menu_items': menu_items})
+
+@login_required
+@user_passes_test(employer_check)
+def booking_delete(request, pk):
+    booking = get_object_or_404(Booking, pk=pk)
+    booking.delete()
+    time.sleep(2)
+    return redirect('booking_list')
+    
+    return render(request, 'manage/screenings/delete_screening.html', {'booking':booking})
+
+#####
 
 @login_required(login_url='login')
 def logout_view(request):
@@ -215,8 +238,9 @@ def logout_view(request):
 
 
 @login_required(login_url='login')
-def hall_detal(request, pk):
-    hall = get_object_or_404(Hall, pk=pk)
+def hall_detal(request, pk_hall, pk_screening):
+    hall = get_object_or_404(Hall, pk=pk_hall)
+    screening = get_object_or_404(Screening, pk=pk_screening)
     places = []
     for i in range(hall.rows):
         row = []
@@ -225,44 +249,69 @@ def hall_detal(request, pk):
         places.append(row)
     if request.method == "POST":
         cinema_pk = request.GET.get('cinema_pk')
-        # print(request.GET.get('cinema_pk'))
         hall_pk = request.GET.get('hall_pk')
-        # print(request.GET.get('hall_pk'))
-        film = request.GET.get('film')
-        # print(request.GET.get('film'))
-        start_time = request.GET.get('start_time')
-        # print(request.GET.get('start_time'))
-        # brone_places = request.POST.get('brone_places')
-        # resault_price = request.POST.get('resault_price')
+        film_pk = request.GET.get('film_pk')
+        screening_pk = request.GET.get('screening_pk')
+        brone_places_str = request.POST.get('brone_places')
+        resault_price = request.POST.get('resault_price')
+
+        # Разделение строки по запятой и удаление лишних пробелов
+        brone_places_parts = [part.strip() for part in brone_places_str.split(',')]
+        # Группировка каждых двух элементов и объединение их в строки с запятой и пробелом
+        brone_places = [f"{brone_places_parts[i]}, {brone_places_parts[i+1]}" for i in range(0, len(brone_places_parts), 2)]
+        brone_places_ticket = ""
+        for i in brone_places:
+            brone_places_ticket += f"ряд {int(i[0])+1}, место {int(i[3])+1}; "
+        brone_places_ticket = brone_places_ticket[0:-2:]
         form_payment = PaymentForm(request.POST)
         if form_payment.is_valid():
             form_payment.save()
         else:
             print(form_payment.errors.as_data())
-        # return redirect('pay_transition')
-        redirect_url = f'/pay_transition/?cinema_pk={cinema_pk}&hall_pk={hall_pk}&film={film}&start_time={start_time}'#&brone_places={brone_places}&resault_price={resault_price}'
+        redirect_url = f'/pay_transition/?cinema_pk={cinema_pk}&hall_pk={hall_pk}&film_pk={film_pk}&screening_pk={screening_pk}&brone_places={brone_places}&brone_places_ticket={brone_places_ticket}&resault_price={resault_price}'
         return HttpResponseRedirect(redirect_url)
-    return render(request, 'card/hall_detal.html', {'hall': hall, 'places': places})
+    import ast
+    bookings = Booking.objects.filter(hall=hall)
+    booking_pos = []
+    for booking in bookings:
+        if booking.screening.start_time == screening.start_time:
+            for i in ast.literal_eval(booking.position):
+                booking_pos.append(i)
+    return render(request, 'card/hall_detal.html', {'hall': hall, 'places': places, 'bookings': booking_pos})
 
 
 def pay_transition(request):
-    if request.method == "POST":
+    if request.method == "GET":
         cinema_pk = request.GET.get('cinema_pk')
-        print(request.GET.get('cinema_pk'))
         hall_pk = request.GET.get('hall_pk')
-        # print(request.GET.get('hall_pk'))
-        film = request.GET.get('film')
-        # print(request.GET.get('film'))
-        start_time = request.GET.get('start_time')
-        # print(request.GET.get('start_time'))
-        # brone_places = request.POST.get('brone_places')
-        # resault_price = request.POST.get('resault_price')
-    # booking = Booking(user=request.user, cinema=get_object_or_404(pk=cinema_pk), hall=get_object_or_404(pk=hall_pk), position=, film=)
-    # booking.save()
-    return render(request, 'payment/pay_transition.html', {})
+        film_pk = request.GET.get('film_pk')
+        screening_pk = request.GET.get('screening_pk')
+        brone_places = request.GET.get('brone_places')
+        brone_places_ticket = request.GET.get('brone_places_ticket')
+        resault_price = request.GET.get('resault_price')
+
+        # booking = Booking(user=request.user, cinema=get_object_or_404(Cinema, pk=cinema_pk), hall=get_object_or_404(Hall, pk=hall_pk), film=get_object_or_404(Film, pk=film_pk), screening=get_object_or_404(Screening, pk=screening))
+        # booking.save()
+        # redirect_url = f'/success/?booking={booking}'
+        time.sleep(2)
+        # return HttpResponseRedirect(redirect_url)
+
+        redirect_url = f'/success/?cinema_pk={cinema_pk}&hall_pk={hall_pk}&film_pk={film_pk}&screening_pk={screening_pk}&brone_places={brone_places}&brone_places_ticket={brone_places_ticket}&resault_price={resault_price}'
+        return HttpResponseRedirect(redirect_url)
+    return render(request, 'payment/success.html', {})
 
 def success(request):
-    return render(request, 'payment/success.html', {})
+    cinema_pk = request.GET.get('cinema_pk')
+    hall_pk = request.GET.get('hall_pk')
+    film_pk = request.GET.get('film_pk')
+    screening_pk = request.GET.get('screening_pk')
+    brone_places = request.GET.get('brone_places')
+    brone_places_ticket = request.GET.get('brone_places_ticket')
+    resault_price = request.GET.get('resault_price')
+
+    booking = Booking(user=request.user, cinema=get_object_or_404(Cinema, pk=cinema_pk), hall=get_object_or_404(Hall, pk=hall_pk), film=get_object_or_404(Film, pk=film_pk), screening=get_object_or_404(Screening, pk=screening_pk), position=brone_places, resault_price = resault_price)
+    booking.save()
+    return render(request, 'payment/success.html', {"booking": booking, "brone_places_ticket": brone_places_ticket})
 
 @transaction.atomic
 def register(request):

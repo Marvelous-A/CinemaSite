@@ -1,5 +1,12 @@
 {% extends "card/base.html" %}
 
 {% block content %}
-    <p>Успех</p>
+    <h1 id='h1_ticket'>Вы успешно купили билеты</h1>
+    <div id='success_ticket'>
+        <p>Фильм: {{booking.film.title}}</p>
+        <p>Кинотеатр: {{booking.cinema.name}}</p>
+        <p>Сеанс: {{booking.screening.start_time}}</p>
+        <p>Места: {{brone_places_ticket}}</p>
+        <p>Стоимость билетов: {{booking.resault_price}}р</p>
+    </div>
 {% endblock %}

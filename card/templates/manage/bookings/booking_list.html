@@ -1,0 +1,17 @@
+{% extends "card/base.html" %}
+
+{% comment %} TODO - вывести список {% endcomment %}
+
+{%block content%}
+    <div class='list_div'>
+        <ol>
+            {%for booking in bookings %}
+                <li> 
+                    {{booking.user}} {{booking.film.title}} {{booking.screening.start_time}} - 
+                    {% comment %} <a href="{% url 'screening_update' pk=screening.pk%}">Изменить</a>  {% endcomment %}
+                    <a href="{% url 'booking_delete' pk=booking.pk%}">Удалить</a>
+                </li>
+            {%endfor%}
+        </ol>
+    </div>
+{%endblock%}

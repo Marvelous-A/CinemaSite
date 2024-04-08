@@ -11,7 +11,7 @@
         {% for hall, screenings_in_hall in halls.items %}
             <div class='cinema_div'>
                 {% for screening in screenings_in_hall %}
-                    <a class='ticket_a' href="{% url 'hall_detal' pk=hall.pk %}">
+                    <a class='ticket_a' href="{% url 'hall_detal' pk_hall=hall.pk pk_screening=screening.pk %}?hall_pk={{ hall.pk }}&cinema_pk={{ cinema.pk }}&screening_pk={{ screening.pk }}&film_pk={{ screening.film.pk }}">
                         <div id='hall_price_screening'>
                             <img id='foto_screening_cinema_detale' src={{screening.film.img_url}} alt='фото'\>
                             <p class='hall_detal'>{{hall.number}} Зал</p>

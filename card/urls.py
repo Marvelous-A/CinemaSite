@@ -21,13 +21,17 @@ urlpatterns = [
     path('manage/screening/<int:pk>/edit',views.screening_update, name='screening_update'),
     path('manage/screening/<int:pk>/delete',views.screening_delete, name='screening_delete'),
     
+    #Бронирование
+    path('manage/booking', views.booking_list, name='booking_list'),
+    path('manage/booking/<int:pk>/delete', views.booking_delete, name='booking_delete'),
+
     path('film_detal/<int:pk>/', views.film_detal, name='film_detal'),
-    path('hall_detal/<int:pk>/', views.hall_detal, name='hall_detal'),
+    path('hall_detal/<int:pk_hall>/<int:pk_screening>', views.hall_detal, name='hall_detal'),
     path('login/', views.login_view, name='login'),
     path('logout', views.logout_view, name='logout'),
     path('register', views.register , name='register'),
     path('pay_transition/', views.pay_transition, name='pay_transition'),
-    path('success', views.success, name='success'),
+    path('success/', views.success, name='success'),
     path('update_profile', views.update_profile, name='update_profile'),
     path('profile', views.profile, name='profile'),
     path('cinema_detal/<int:pk>/', views.cinema_detal, name='cinema_detal'),

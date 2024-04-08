@@ -79,13 +79,15 @@ class Booking(models.Model):
     cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
     hall = models.ForeignKey(Hall, on_delete=models.CASCADE)
     position = models.CharField(max_length=10)
+    resault_price = models.CharField(max_length=15)
     film = models.ForeignKey(Film, on_delete=models.CASCADE)
+    screening = models.ForeignKey('Screening', on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'Booking: {self.user.username}, {self.cinema}, {self.hall}, {self.film}'
+        return f'Booking: {self.user.username}, {self.cinema}, {self.hall}, {self.film}, {self.position}'
 
 class Screening(models.Model):
     cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)

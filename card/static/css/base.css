@@ -141,7 +141,7 @@ body {
     text-decoration: none;
 }
 #bar_click {
-    height: 6.5%;
+    height: 5%;
     width: 2.7%;
     position:fixed;
     z-index: 1001;
@@ -577,6 +577,25 @@ body {
 }
 .button_sub:hover {
     color: black;
+}
+
+#h1_ticket {
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 1%;
+}
+#success_ticket {
+    height: 40%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: 2%;
+    padding: 1%;
+    background-color: #fff;
+    color: #000;
+    border-top:      #383838;
+    border-bottom: dashed #383838;
 }
 
 #footer {
