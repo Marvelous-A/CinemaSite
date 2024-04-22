@@ -23,7 +23,7 @@ urlpatterns = [
     
     #Бронирование
     path('manage/booking', views.booking_list, name='booking_list'),
-    path('manage/booking/<int:pk>/delete', views.booking_delete, name='booking_delete'),
+    path('manage/booking/<int:pk>/delete', views.delete_booking, name='delete_booking'),
 
     path('film_detal/<int:pk>/', views.film_detal, name='film_detal'),
     path('hall_detal/<int:pk_hall>/<int:pk_screening>', views.hall_detal, name='hall_detal'),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('cinema_detal/<int:pk>/', views.cinema_detal, name='cinema_detal'),
     path('cinemas', views.cinemas, name='cinemas'),
+    path('delete_transition', views.delete_transition, name='delete_transition'),
 
     path('test', views.menu_view, name='test')
 ]

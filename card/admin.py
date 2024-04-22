@@ -26,13 +26,22 @@ class ProfileView(ModelAdmin):
     def user_view():
         ...
 
+class ScreeningView(ModelAdmin):
+    list_display = ['film', 'cinema', 'hall', 'start_time']
+    empty_value_display = 'Не задано'
+    list_filter = ['cinema', 'film']
+
+class BookingView(ModelAdmin):
+    list_display = ['user', 'position', 'cinema', 'hall', 'film']
+    empty_value_display = 'Не задано'
+    list_filter = ['cinema', 'film']
 
 admin.site.register(Film, FilmView)
 admin.site.register(Category)
 admin.site.register(Director)
 admin.site.register(Cinema)
-admin.site.register(Screening)
-admin.site.register(Booking)
+admin.site.register(Screening, ScreeningView)
+admin.site.register(Booking, BookingView)
 admin.site.register(Hall)
 admin.site.register(Profile, ProfileView)
 admin.site.register(Payment)

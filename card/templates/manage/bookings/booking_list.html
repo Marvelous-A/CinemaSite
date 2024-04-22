@@ -9,7 +9,7 @@
                 <li> 
                     {{booking.user}} {{booking.film.title}} {{booking.screening.start_time}} - 
                     {% comment %} <a href="{% url 'screening_update' pk=screening.pk%}">Изменить</a>  {% endcomment %}
-                    <a href="{% url 'booking_delete' pk=booking.pk%}">Удалить</a>
+                    <a href="{% url 'delete_booking' pk=booking.pk%}">Удалить</a>
                 </li>
             {%endfor%}
         </ol>

@@ -3,7 +3,7 @@
 {% block content %}
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="refresh" content="5;url=http://127.0.0.1:8000">
+        <meta http-equiv="refresh" content="5;url=http://127.0.0.1:8000/main_list">
         <title>Промежуточная страница</title>
         <script>
             setTimeout(function() {
@@ -13,6 +13,7 @@
     </head>
     <body>
         <h1>Пожалуйста, подождите...</h1>
-        <p>qqВы будете перенаправлены через 2 секунды.</p>
+        {% comment %} <p>{{booking}}</p> {% endcomment %}
+        <p>aaaaaaaaaaaВы будете перенаправлены через 2 секунды.</p>
     </body>
 {% endblock %}

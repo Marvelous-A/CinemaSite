@@ -221,13 +221,13 @@ def booking_list(request):
 
 @login_required
 @user_passes_test(employer_check)
-def booking_delete(request, pk):
+def delete_booking(request, pk):
     booking = get_object_or_404(Booking, pk=pk)
     booking.delete()
     time.sleep(2)
     return redirect('booking_list')
     
-    return render(request, 'manage/screenings/delete_screening.html', {'booking':booking})
+    return render(request, 'manage/bookings/delete_booking.html', {})
 
 #####
 
@@ -376,6 +376,9 @@ def update_profile(request):
 def profile(request):
     return render(request, 'card/profile.html', {})
 
+@login_required
+def delete_transition(request):
+    return render(request, 'card/delete_transition.html')
 
 
 
